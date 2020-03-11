@@ -3,8 +3,9 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab1Page } from './tab1.page';
+import { ConnectPage } from './connect.page';
 import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
+import {QRScanner} from '@ionic-native/qr-scanner/ngx';
 
 @NgModule({
   imports: [
@@ -12,8 +13,9 @@ import { ExploreContainerComponentModule } from '../../explore-container/explore
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    RouterModule.forChild([{ path: '', component: Tab1Page }])
+    RouterModule.forChild([{ path: '', component: ConnectPage }])
   ],
-  declarations: [Tab1Page]
+  declarations: [ConnectPage],
+  providers: [QRScanner]
 })
-export class Tab1PageModule {}
+export class ConnectPageModule {}

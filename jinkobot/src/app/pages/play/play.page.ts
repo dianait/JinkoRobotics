@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-tab2',
-  templateUrl: 'move.page.html',
-  styleUrls: ['move.page.scss']
+  templateUrl: 'play.page.html',
+  styleUrls: ['play.page.scss']
 })
-export class MovePage {
+export class PlayPage {
 
   constructor() {}
 

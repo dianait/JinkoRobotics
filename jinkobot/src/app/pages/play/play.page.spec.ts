@@ -2,19 +2,19 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
 
-import { MovePage } from './move.page';
+import { PlayPage } from './play.page';
 
 describe('Tab2Page', () => {
-  let component: MovePage;
-  let fixture: ComponentFixture<MovePage>;
+  let component: PlayPage;
+  let fixture: ComponentFixture<PlayPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MovePage],
+      declarations: [PlayPage],
       imports: [IonicModule.forRoot(), ExploreContainerComponentModule]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MovePage);
+    fixture = TestBed.createComponent(PlayPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

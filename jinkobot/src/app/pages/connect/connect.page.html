@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Connect
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,11 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Connect</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-button (click)="startScanning()" expand="full" color="danger" ></ion-button>
+
+  <app-explore-container name="Connect"></app-explore-container>
 </ion-content>

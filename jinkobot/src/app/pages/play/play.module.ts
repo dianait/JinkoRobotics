@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MovePage } from './move.page';
+import { PlayPage } from './play.page';
 import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
 
 @NgModule({
@@ -12,8 +12,8 @@ import { ExploreContainerComponentModule } from '../../explore-container/explore
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    RouterModule.forChild([{ path: '', component: MovePage }])
+    RouterModule.forChild([{ path: '', component: PlayPage }])
   ],
-  declarations: [MovePage]
+  declarations: [PlayPage]
 })
 export class MovePageModule {}
