@@ -35,7 +35,7 @@ const routes: Routes = [
   },
   {
     path: "",
-    redirectTo: "connect",
+    redirectTo: "play",
     pathMatch: "full"
   }
 ];

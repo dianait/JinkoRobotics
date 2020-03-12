@@ -1,3 +1,4 @@
+import { HeaderComponent } from "./components/header/header.component";
 import { TabsPageModule } from "./pages/tabs/tabs.module";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
@@ -11,8 +12,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
