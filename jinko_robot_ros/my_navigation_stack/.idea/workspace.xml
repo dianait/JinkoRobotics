@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="630dffa5-9ee4-4f79-9fe6-ca10f680223c" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="1YevVy940tciWNPydQdIRdlgTJO" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Proyectos/Robots" />
+  </component>
+  <component name="RunManager">
+    <configuration name="juanmi" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="my_navigation_stack" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Proyectos/JuanMiç" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/Proyectos/JuanMiç/juanmi.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.juanmi" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="630dffa5-9ee4-4f79-9fe6-ca10f680223c" name="Default Changelist" comment="" />
+      <created>1583315901362</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1583315901362</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="296" y="227" key="FileChooserDialogImpl" timestamp="1583757041491">
+      <screen x="65" y="24" width="887" height="916" />
+    </state>
+    <state x="296" y="227" key="FileChooserDialogImpl/65.24.887.916@65.24.887.916" timestamp="1583757041491" />
+    <state width="864" height="250" key="GridCell.Tab.0.bottom" timestamp="1583757043233">
+      <screen x="65" y="24" width="887" height="916" />
+    </state>
+    <state width="864" height="250" key="GridCell.Tab.0.bottom/65.24.887.916@65.24.887.916" timestamp="1583757043233" />
+    <state width="864" height="250" key="GridCell.Tab.0.center" timestamp="1583757043232">
+      <screen x="65" y="24" width="887" height="916" />
+    </state>
+    <state width="864" height="250" key="GridCell.Tab.0.center/65.24.887.916@65.24.887.916" timestamp="1583757043232" />
+    <state width="864" height="250" key="GridCell.Tab.0.left" timestamp="1583757043232">
+      <screen x="65" y="24" width="887" height="916" />
+    </state>
+    <state width="864" height="250" key="GridCell.Tab.0.left/65.24.887.916@65.24.887.916" timestamp="1583757043232" />
+    <state width="864" height="250" key="GridCell.Tab.0.right" timestamp="1583757043232">
+      <screen x="65" y="24" width="887" height="916" />
+    </state>
+    <state width="864" height="250" key="GridCell.Tab.0.right/65.24.887.916@65.24.887.916" timestamp="1583757043232" />
+    <state x="274" y="299" key="com.intellij.ide.util.TipDialog" timestamp="1583755492900">
+      <screen x="65" y="24" width="887" height="916" />
+    </state>
+    <state x="653" y="302" key="com.intellij.ide.util.TipDialog/65.24.1855.926@65.24.1855.926" timestamp="1583394832295" />
+    <state x="274" y="299" key="com.intellij.ide.util.TipDialog/65.24.887.916@65.24.887.916" timestamp="1583755492900" />
+  </component>
+</project>
