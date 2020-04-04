@@ -1,0 +1,14 @@
+{
+  "name": "jinko_api",
+  "version": "1.0.0",
+  "description": "api for the jinko robot",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Carlos Canut",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
