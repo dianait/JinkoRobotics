@@ -4,7 +4,8 @@
   "description": "api for the jinko robot",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "dev": "node index.js"
   },
   "author": "Carlos Canut",
   "license": "ISC",
