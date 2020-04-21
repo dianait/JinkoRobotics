@@ -1,3 +1,5 @@
 int32 destino
+float32 coordenadaX
+float32 coordenadaY
 ---
 bool success

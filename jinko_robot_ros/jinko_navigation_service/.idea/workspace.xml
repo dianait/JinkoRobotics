@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6914c5ed-0a49-4909-ae1f-0c35c12a71c0" name="Default Changelist" comment="" />
+    <list default="true" id="27d2059c-2824-413d-bf7d-cb86967f5853" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectId" id="1YZZiTB6IobY4Ft7FkhJRWxKQCb" />
+  <component name="ProjectId" id="1Z1TJ06kW81OaVYQegjWzjtNGA0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -15,7 +15,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../tesoro" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -34,19 +34,23 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="6914c5ed-0a49-4909-ae1f-0c35c12a71c0" name="Default Changelist" comment="" />
-      <created>1583152203306</created>
+      <changelist id="27d2059c-2824-413d-bf7d-cb86967f5853" name="Default Changelist" comment="" />
+      <created>1584005524684</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1583152203306</updated>
+      <updated>1584005524684</updated>
     </task>
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="780" y="263" key="FileChooserDialogImpl" timestamp="1583919019894">
-      <screen x="65" y="24" width="1855" height="926" />
+    <state x="296" y="227" key="FileChooserDialogImpl" timestamp="1586254580962">
+      <screen x="65" y="24" width="887" height="916" />
     </state>
-    <state x="780" y="297" key="FileChooserDialogImpl/65.24.1855.1056@65.24.1855.1056" timestamp="1583153629973" />
-    <state x="780" y="263" key="FileChooserDialogImpl/65.24.1855.926@65.24.1855.926" timestamp="1583919019894" />
+    <state x="296" y="227" key="FileChooserDialogImpl/65.24.887.916@65.24.887.916" timestamp="1586254580962" />
+    <state x="274" y="299" key="com.intellij.ide.util.TipDialog" timestamp="1586254561335">
+      <screen x="65" y="24" width="887" height="916" />
+    </state>
+    <state x="655" y="302" key="com.intellij.ide.util.TipDialog/65.24.1855.926@65.24.1855.926" timestamp="1586196252335" />
+    <state x="274" y="299" key="com.intellij.ide.util.TipDialog/65.24.887.916@65.24.887.916" timestamp="1586254561335" />
   </component>
 </project>

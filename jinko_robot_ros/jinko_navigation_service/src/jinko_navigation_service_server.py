@@ -10,15 +10,28 @@ from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal, MoveBaseActionFeedb
 from tf.transformations import quaternion_from_euler
 from collections import OrderedDict
 
+from std_srvs.srv import Empty, EmptyRequest, EmptyResponse
+from geometry_msgs.msg import PoseWithCovarianceStamped
+
 from jinko_service_msg.srv import jinko_service_msg, jinko_service_msgRequest, jinko_service_msgResponse
 
 
 ## Puntos de la casa
 waypoints = [
-    ['CAMA', (2.8, 0.21, 0.0), (0.0, 0.0, 2.9, 0.0)],
-    ['ZONA_DE_ESTUDIO', (1.8, 1.0, 0.0), (0.0, 0.0, 3, 0.0)],
-    ['ZONA_DE_JUEGOS', (1.6, 0.6, 0.0), (0.0, 0.0, 4, 0.0)],
+    ['PUERTA', (2.5, 0.0, 0.0), (0.0, 0.0, 2.9, 0.0)],
+    ['MESA', (6.5, -0.5, 0.0), (0.0, 0.0, 3, 0.0)],
+    ['ZONA_DE_JUEGOS', (6.5, -3.0, 0.0), (0.0, 0.0, 1, 0.0)],
 ]
+
+## Se guardara la posicion a la que se deberia mover el robot para compararla posteriormente con la real
+donde_deberia_estar_el_robot = [0.0, 0.0]
+
+## Si la posicion donde deberia estar y la real son similares (+-10cm) seria True
+esta_donde_deberia = False
+desviacion = 0.1
+
+## variable para comprobar si ya se ha realizado la funcion comprobarPosicion
+se_ha_comprobado = False
 
 ## Descripcion de los estados
 class PowerOnRobot(State):
@@ -81,40 +94,7 @@ class Navigate(State):
             return 'succeeded'
         else:
             return 'aborted'
-
-
-
-class RemoveClothes(State):
-    def __init__(self):
-        State.__init__(self, outcomes=['succeeded','aborted'])
-
-    def execute(self, userdata):
-        print("Sacando la ropa de la lavadora...")
-        cont = 0
-        while cont<6:
-            time.sleep(1)
-            print(".")
-            print(cont)
-            cont +=1
-        if cont == 6:
-            return 'succeeded'
-        else:
-            return 'aborted'
-
-class KeepClothes(State):
-    def __init__(self):
-        State.__init__(self, outcomes=['succeeded','aborted'])
-
-    def execute(self, userdata):
-        print("Guardando la ropa en el armario...")
-        for cont in range(0,5):
-            cont += 1
-            time.sleep(1)
-            print(".")
-        if cont> 0:
-            return 'succeeded'
-        else:
-            return 'aborted'
+"""
 class Charge(State):
     def __init__(self):
         State.__init__(self, outcomes=['succeeded','aborted'], input_keys=['input'], output_keys=[''])
@@ -127,96 +107,168 @@ class Charge(State):
         else:
             print("Robot sin carga")
             return 'aborted'
-
+"""
 
 def my_callback(request):
-        meta = request.destino
-        if meta == 1:
-            sm_descansar = StateMachine(outcomes=['succeeded', 'aborted'])
-            sm_descansar.userdata.sm_input = meta
+    global donde_deberia_estar_el_robot
+    global esta_donde_deberia
+    global se_ha_comprobado
 
-            with sm_descansar:
-                StateMachine.add('POWER_ON', PowerOnRobot(),
-                                 transitions={'succeeded': 'WAITING_ORDER', 'aborted': 'aborted'})
-                StateMachine.add('WAITING_ORDER', WaitingOrder(1),
-                                 transitions={'succeeded': 'CAMA', 'aborted': 'aborted'})
-                StateMachine.add(waypoints[0][0], Navigate(waypoints[0][1], waypoints[0][2], waypoints[0][0]),
-                                 transitions={'succeeded': 'succeeded', 'aborted': 'WAITING_ORDER'})
+    meta = request.destino
+    metaX = request.coordenadaX
+    metaY = request.coordenadaY
+    if meta == 1:
+        sm_descansar = StateMachine(outcomes=['succeeded', 'aborted'])
+        sm_descansar.userdata.sm_input = meta
 
-            intro_server = IntrospectionServer('JinkoBot', sm_descansar, '/SM_ROOT')
-            intro_server.start()
+        with sm_descansar:
+            StateMachine.add('POWER_ON', PowerOnRobot(),
+                             transitions={'succeeded': 'WAITING_ORDER', 'aborted': 'aborted'})
+            StateMachine.add('WAITING_ORDER', WaitingOrder(1),
+                             transitions={'succeeded': 'PUERTA', 'aborted': 'aborted'})
+            StateMachine.add(waypoints[0][0], Navigate(waypoints[0][1], waypoints[0][2], waypoints[0][0]),
+                             transitions={'succeeded': 'succeeded', 'aborted': 'WAITING_ORDER'})
 
-            # Ejecutamos la maquina de estados
-            sm_outcome = sm_descansar.execute()
-            intro_server.stop()
+            # Guarda donde deberia haber ido el robot
+            donde_deberia_estar_el_robot = [waypoints[0][1][0], waypoints[0][1][1]]
 
-        elif meta == 2:
-            sm_jugar = StateMachine(outcomes=['succeeded', 'aborted'])
-            sm_jugar.userdata.sm_input = meta
+        intro_server = IntrospectionServer('JinkoBot', sm_descansar, '/SM_ROOT')
+        intro_server.start()
 
-            with sm_jugar:
-                StateMachine.add('POWER_ON', PowerOnRobot(),
-                                 transitions={'succeeded': 'WAITING_ORDER', 'aborted': 'aborted'})
-                StateMachine.add('WAITING_ORDER', WaitingOrder(1),
-                                 transitions={'succeeded': 'ZONA_DE_JUEGOS', 'aborted': 'aborted'})
-                StateMachine.add(waypoints[2][0], Navigate(waypoints[2][1], waypoints[2][2], waypoints[2][0]),
-                                 transitions={'succeeded': 'succeeded', 'aborted': 'WAITING_ORDER'})
+        # Ejecutamos la maquina de estados
+        sm_outcome = sm_descansar.execute()
+        print(sm_outcome)
+        intro_server.stop()
 
-            intro_server = IntrospectionServer('JinkoBot', sm_jugar, '/SM_ROOT')
-            intro_server.start()
+    elif meta == 2:
+        sm_jugar = StateMachine(outcomes=['succeeded', 'aborted'])
+        sm_jugar.userdata.sm_input = meta
 
-            # Ejecutamos la maquina de estados
-            sm_outcome = sm_jugar.execute()
-            intro_server.stop()
+        with sm_jugar:
+            StateMachine.add('POWER_ON', PowerOnRobot(),
+                             transitions={'succeeded': 'WAITING_ORDER', 'aborted': 'aborted'})
+            StateMachine.add('WAITING_ORDER', WaitingOrder(1),
+                             transitions={'succeeded': 'ZONA_DE_JUEGOS', 'aborted': 'aborted'})
+            StateMachine.add(waypoints[2][0], Navigate(waypoints[2][1], waypoints[2][2], waypoints[2][0]),
+                             transitions={'succeeded': 'succeeded', 'aborted': 'WAITING_ORDER'})
 
-        elif meta == 3:
-            sm_estudiar = StateMachine(outcomes=['succeeded', 'aborted'])
-            sm_estudiar.userdata.sm_input = meta
+            # Guarda donde deberia haber ido el robot
+            dondeDeberiaEstarElRobot = [waypoints[2][1][0], waypoints[2][1][1]]
 
-            with sm_estudiar:
-                StateMachine.add('POWER_ON', PowerOnRobot(),
-                                 transitions={'succeeded': 'WAITING_ORDER', 'aborted': 'aborted'})
-                StateMachine.add('WAITING_ORDER', WaitingOrder(1),
-                                 transitions={'succeeded': 'ZONA_DE_ESTUDIO', 'aborted': 'aborted'})
-                StateMachine.add(waypoints[1][0], Navigate(waypoints[1][1], waypoints[1][2], waypoints[1][0]),
-                                 transitions={'succeeded': 'succeeded', 'aborted': 'WAITING_ORDER'})
+        intro_server = IntrospectionServer('JinkoBot', sm_jugar, '/SM_ROOT')
+        intro_server.start()
 
-            intro_server = IntrospectionServer('JinkoBot', sm_estudiar, '/SM_ROOT')
-            intro_server.start()
+        # Ejecutamos la maquina de estados
+        sm_outcome = sm_jugar.execute()
+        print(sm_outcome)
+        intro_server.stop()
 
-            # Ejecutamos la maquina de estados
-            sm_outcome = sm_estudiar.execute()
-            intro_server.stop()
+    elif meta == 3:
+        sm_estudiar = StateMachine(outcomes=['succeeded', 'aborted'])
+        sm_estudiar.userdata.sm_input = meta
 
-        elif meta == 4:
-            sm_tour = StateMachine(outcomes=['succeeded', 'aborted'])
-            sm_tour.userdata.sm_input = meta
+        with sm_estudiar:
+            StateMachine.add('POWER_ON', PowerOnRobot(),
+                             transitions={'succeeded': 'WAITING_ORDER', 'aborted': 'aborted'})
+            StateMachine.add('WAITING_ORDER', WaitingOrder(1),
+                             transitions={'succeeded': 'MESA', 'aborted': 'aborted'})
+            StateMachine.add(waypoints[1][0], Navigate(waypoints[1][1], waypoints[1][2], waypoints[1][0]),
+                             transitions={'succeeded': 'succeeded', 'aborted': 'WAITING_ORDER'})
 
-            with sm_tour:
-                StateMachine.add('POWER_ON', PowerOnRobot(),
-                                 transitions={'succeeded': 'WAITING_ORDER', 'aborted': 'aborted'})
-                StateMachine.add('WAITING_ORDER', WaitingOrder(1),
-                                 transitions={'succeeded': 'ZONA_DE_ESTUDIO', 'aborted': 'aborted'})
-                StateMachine.add(waypoints[1][0], Navigate(waypoints[1][1], waypoints[1][2], waypoints[1][0]),
-                                 transitions={'succeeded': 'ZONA_DE_JUEGOS', 'aborted': 'WAITING_ORDER'})
-                StateMachine.add(waypoints[2][0], Navigate(waypoints[2][1], waypoints[2][2], waypoints[2][0]),
-                                 transitions={'succeeded': 'CAMA', 'aborted': 'WAITING_ORDER'})
-                StateMachine.add(waypoints[0][0], Navigate(waypoints[0][1], waypoints[0][2], waypoints[0][0]),
-                                 transitions={'succeeded': 'succeeded', 'aborted': 'WAITING_ORDER'})
+            # Guarda donde deberia haber ido el robot
+            dondeDeberiaEstarElRobot = [waypoints[1][1][0], waypoints[1][1][1]]
 
-            intro_server = IntrospectionServer('JinkoBot', sm_tour, '/SM_ROOT')
-            intro_server.start()
+        intro_server = IntrospectionServer('JinkoBot', sm_estudiar, '/SM_ROOT')
+        intro_server.start()
 
-            # Ejecutamos la maquina de estados
-            sm_outcome = sm_tour.execute()
-            intro_server.stop()
+        # Ejecutamos la maquina de estados
+        sm_outcome = sm_estudiar.execute()
+        print(sm_outcome)
+        intro_server.stop()
 
-        elif meta == 5:
-            exit()
+    elif meta == 4:
+        sm_tour = StateMachine(outcomes=['succeeded', 'aborted'])
+        sm_tour.userdata.sm_input = meta
 
-        response = jinko_service_msgResponse()
-        response.success = True
-        return response
+        with sm_tour:
+            StateMachine.add('POWER_ON', PowerOnRobot(),
+                             transitions={'succeeded': 'WAITING_ORDER', 'aborted': 'aborted'})
+            StateMachine.add('WAITING_ORDER', WaitingOrder(1),
+                             transitions={'succeeded': 'MESA', 'aborted': 'aborted'})
+            StateMachine.add(waypoints[1][0], Navigate(waypoints[1][1], waypoints[1][2], waypoints[1][0]),
+                             transitions={'succeeded': 'ZONA_DE_JUEGOS', 'aborted': 'WAITING_ORDER'})
+            StateMachine.add(waypoints[2][0], Navigate(waypoints[2][1], waypoints[2][2], waypoints[2][0]),
+                             transitions={'succeeded': 'PUERTA', 'aborted': 'WAITING_ORDER'})
+            StateMachine.add(waypoints[0][0], Navigate(waypoints[0][1], waypoints[0][2], waypoints[0][0]),
+                             transitions={'succeeded': 'succeeded', 'aborted': 'WAITING_ORDER'})
+
+            # Guarda donde deberia haber ido el robot
+            dondeDeberiaEstarElRobot = [waypoints[0][1][0], waypoints[0][1][1]]
+
+        intro_server = IntrospectionServer('JinkoBot', sm_tour, '/SM_ROOT')
+        intro_server.start()
+
+        # Ejecutamos la maquina de estados
+        sm_outcome = sm_tour.execute()
+        print(sm_outcome)
+        intro_server.stop()
+
+    elif meta == 5:
+        exit()
+
+    elif meta == 0: # Navegar a coordenadas variables que aporte el usuario desde coordenadaX y coordenadaY al llamar a /jinko_navigation
+        sm_coordenadas = StateMachine(outcomes=['succeeded', 'aborted'])
+        sm_coordenadas.userdata.sm_input = [metaX, metaY]
+
+        with sm_coordenadas:
+            StateMachine.add('POWER_ON', PowerOnRobot(),
+                             transitions={'succeeded': 'WAITING_ORDER', 'aborted': 'aborted'})
+            StateMachine.add('WAITING_ORDER', WaitingOrder(1),
+                             transitions={'succeeded': 'NAVIGATE_TO_UNKNOWN', 'aborted': 'aborted'})
+            StateMachine.add('NAVIGATE_TO_UNKNOWN', Navigate((metaX, metaY, 0.0), (0.0, 0.0, 0.7, 0.0), 'PUNTO'),
+                             transitions={'succeeded': 'succeeded', 'aborted': 'WAITING_ORDER'})
+
+        intro_server = IntrospectionServer('JinkoBot', sm_coordenadas, '/SM_ROOT')
+        intro_server.start()
+        # Guarda donde deberia haber ido el robot
+        donde_deberia_estar_el_robot = [metaX, metaY]
+
+        # Ejecutamos la maquina de estados
+        sm_outcome = sm_coordenadas.execute()
+        print(sm_outcome)
+        intro_server.stop()
+
+    else:
+        print("Introduce valores validos de destino (0, 1, 2, 3, 4, 5)")
+
+    # COMPROBACION POSICION REAL DEL ROBOT
+    rospy.Subscriber("/amcl_pose", PoseWithCovarianceStamped, comprobacionPosicion)
+
+    while not se_ha_comprobado: # Espera a que se haya comprobado
+        1+1
+
+    response = jinko_service_msgResponse()
+    response.success = esta_donde_deberia
+    se_ha_comprobado = False
+    return response
+
+
+def comprobacionPosicion(poseWithCovariance):
+    global donde_deberia_estar_el_robot
+    global esta_donde_deberia
+    global desviacion
+    global se_ha_comprobado
+
+    X = poseWithCovariance.pose.pose.position.x
+    Y = poseWithCovariance.pose.pose.position.y
+
+    if donde_deberia_estar_el_robot[0] <= float(X)+desviacion and donde_deberia_estar_el_robot[0] >= float(X)-desviacion and donde_deberia_estar_el_robot[1] <= float(Y)+desviacion and donde_deberia_estar_el_robot[1] >= float(Y)-desviacion:
+        esta_donde_deberia = True
+    else:
+        esta_donde_deberia = False
+    se_ha_comprobado = True
+    # print(str(donde_deberia_estar_el_robot)+" y "+str(X)+" "+str(Y))
+
 
 class main():
     def __init__(self):
