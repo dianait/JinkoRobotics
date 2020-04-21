@@ -1,5 +1,5 @@
 <launch>
-    <arg name="map_file" default="/home/carlos/mapas/mapaSprint.yaml"/>
+    <arg name="map_file" default="../../mapas/sala_de_juegos.yaml"/>
     <node
         name="map_server"
         type="map_server"

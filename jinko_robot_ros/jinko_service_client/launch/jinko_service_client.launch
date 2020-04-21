@@ -1,8 +1,0 @@
-<launch>
-    <node
-        pkg = "jinko_service_client"
-        type = "jinko_navigation_service_client.py"
-        name = "jinko_service_client"
-        output = "screen">
-    </node>
-</launch>
