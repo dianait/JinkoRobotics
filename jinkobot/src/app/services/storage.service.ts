@@ -8,7 +8,7 @@ export class StorageService {
   public robots: IRobot[];
   constructor(private storage: Storage) {
     this.storage.get("robots").then((data) => {
-      this.robots = data;
+      data ? (this.robots = data) : (this.robots = []);
     });
   }
 
