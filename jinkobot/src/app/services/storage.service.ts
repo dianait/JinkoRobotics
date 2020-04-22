@@ -1,16 +1,10 @@
-import { Injectable } from "@angular/core";
 import { IRobot } from "../models/IRobot";
 import { Storage } from "@ionic/storage";
-@Injectable({
-  providedIn: "root",
-})
+import { Observable } from "rxjs";
+
 export class StorageService {
   public robots: IRobot[];
-  constructor(private storage: Storage) {
-    this.storage.get("robots").then((data) => {
-      data ? (this.robots = data) : (this.robots = []);
-    });
-  }
+  constructor(private storage: Storage) {}
 
   pushRobot(id: string, alias: string) {
     let existRobot: boolean;
@@ -20,5 +14,18 @@ export class StorageService {
 
     existRobot ? null : this.robots.push({ id, alias });
     this.storage.set("robots", this.robots);
+  }
+
+  getRobots() {
+    return new Observable<IRobot[]>((observer) => {
+      this.storage
+        .get("robots")
+        .then((data) => {
+          data
+            ? (this.robots = data) && observer.next(this.robots)
+            : (this.robots = []);
+        })
+        .catch((error) => observer.error(error));
+    });
   }
 }
