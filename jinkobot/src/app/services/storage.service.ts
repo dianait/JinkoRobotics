@@ -1,7 +1,11 @@
 import { IRobot } from "../models/IRobot";
 import { Storage } from "@ionic/storage";
 import { Observable } from "rxjs";
+import { Injectable } from "@angular/core";
 
+@Injectable({
+  providedIn: "root",
+})
 export class StorageService {
   public robots: IRobot[];
   constructor(private storage: Storage) {}
