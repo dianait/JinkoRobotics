@@ -1,0 +1,5 @@
+<app-robot-card
+  *ngFor="let robot of robots"
+  [robot]="robot"
+  (click)="presentModal(robot)"
+></app-robot-card>
