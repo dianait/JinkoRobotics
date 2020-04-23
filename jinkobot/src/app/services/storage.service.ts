@@ -20,6 +20,13 @@ export class StorageService {
     this.storage.set("robots", this.robots);
   }
 
+  removeRobot(id: string) {
+    this.robots.forEach((robot, index) => {
+      robot.id.includes(id) && this.robots.splice(index);
+    });
+    this.storage.set("robots", this.robots);
+  }
+
   getRobots() {
     return new Observable<IRobot[]>((observer) => {
       this.storage
