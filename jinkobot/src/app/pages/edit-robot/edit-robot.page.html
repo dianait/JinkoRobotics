@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        (click)="closeModal(false)"
+        defaultHref="connect"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{robot.alias}}</ion-title>
+    <ion-button fill="outline" slot="end">connect</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item color="medium-shade">
+    <ion-label position="fixed" disabled>ID: {{robot.id}}</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Alias:</ion-label>
+    <ion-input [(ngModel)]="robot.alias"></ion-input>
+  </ion-item>
+
+  <ion-button (click)="saveChanges()" expand="block" color="secondary"
+    >save</ion-button
+  >
+  <ion-button
+    *ngIf="robot.alias"
+    (click)="deleteRobot(robot.id)"
+    expand="block"
+    color="danger"
+    >remove</ion-button
+  >
+</ion-content>
