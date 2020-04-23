@@ -1,38 +1,35 @@
 import { Component } from "@angular/core";
 
-import { QRScanner, QRScannerStatus } from "@ionic-native/qr-scanner/ngx";
+import { ModalController } from "@ionic/angular";
+import { EditRobotPage } from "../../pages/edit-robot/edit-robot.page";
+import { StorageService } from "src/app/services/storage.service";
+import { Observable } from "rxjs";
+import { IRobot } from "src/app/models/IRobot";
 
 @Component({
-  selector: "app-tab1",
   templateUrl: "connect.page.html",
 })
 export class ConnectPage {
-  constructor(private qrScanner: QRScanner) {}
+  robots = new Observable<IRobot[]>();
+  constructor(
+    private modalCtrl: ModalController,
+    private storage: StorageService
+  ) {
+    this.robots = this.storage.getRobots();
+  }
+  async presentModal() {
+    const modal = await this.modalCtrl.create({
+      component: EditRobotPage,
+      componentProps: {
+        robot: { id: "123", alias: "" },
+      },
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    this.closeModal(data.savedChanges);
+  }
 
-  startScanning() {
-    this.qrScanner
-      .prepare()
-      .then((status: QRScannerStatus) => {
-        if (status.authorized) {
-          // camera permission concedido
-
-          // start scanning
-          const scanSub = this.qrScanner.scan().subscribe((text: string) => {
-            console.log("Escaned something", text);
-
-            this.qrScanner.hide(); // hide camera preview
-            scanSub.unsubscribe(); //stop scanning
-          });
-        } else if (status.denied) {
-          // camera permission was permanently denied
-          // you must use QRScanner.openSettings() method to guide the user to the settings page
-          // then they can grant the permission from there
-        } else {
-          // permission was denied, but not permanently. You can ask for permission again at a later time.
-        }
-      })
-      .catch((e: any) => {
-        console.log("error: ", e);
-      });
+  async closeModal(data: boolean) {
+    data && (this.robots = this.storage.getRobots());
   }
 }

@@ -1,0 +1,5 @@
+<app-robot-list [robot$]="robots"></app-robot-list>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" type="button">
+  <app-add-robot-button (click)="presentModal()"></app-add-robot-button>
+</ion-fab>
