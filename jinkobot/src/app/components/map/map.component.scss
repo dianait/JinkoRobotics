@@ -1,0 +1,38 @@
+.green { background-color: green;}
+.blue { background-color: blue;}
+.red { background-color: red;}
+.orange { background-color: orange;}
+
+.form {
+    min-width:70%;
+    max-width:80%;
+    align-self: center; 
+    margin: 0 auto;
+   /* border: 1px solid grey; */   
+}
+
+p {
+    padding: 0 !important;
+}
+
+/* MAP */
+.map {
+    width:100%;
+    display:flex;
+    margin: 0 auto;
+}
+
+.map div {
+    width:50%;
+    margin: 0 auto;
+    border:2px solid grey;
+    cursor:hand !important;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    height: 150px;
+}
+
+.map div:hover {
+    opacity: 0.5;
+}

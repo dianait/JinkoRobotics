@@ -7,6 +7,7 @@
 *********************************************************************/
 import { Injectable } from '@angular/core';
 import * as ROSLIB from 'roslib';
+import { StreamingService } from './streaming.service';
 
 @Injectable({
     providedIn: 'root'
@@ -16,19 +17,13 @@ export class RosConnectionService {
     url: string = 'localhost:9090';
     connected: boolean = false;
     loading: boolean;
-    mapViewer: any;
-    mapGridClient: any;
     service_busy: boolean;
     param_val: any;
     param_read_val: any;
-    goalString: string;
-    goal: any;
-    service_response: any;
 
     constructor() { }
 
     connect() {
-        // define ROSBridge connection object
         this.ros = new ROSLIB.Ros({
             url: 'ws://' + this.url
         })
@@ -38,24 +33,6 @@ export class RosConnectionService {
             this.connected = true
             this.loading = false
             console.log('Connection to ROSBridge established!')
-            // this.mapViewer = new ROS2D.Viewer({
-            //     divID: 'map',
-            //     width: 420,
-            //     height: 360
-            // })
-
-            // // Setup the map client.
-            // this.mapGridClient = new ROS2D.OccupancyGridClient({
-            //     ros: this.ros,
-            //     rootObject: this.mapViewer.scene,
-            //     continuous: true,
-            // })
-            // Scale the canvas to fit to the map
-            // this.mapGridClient.on('change', () => {
-            //     this.mapViewer.scaleToDimensions(this.mapGridClient.currentGrid.width, this.mapGridClient.currentGrid.height);
-            //     this.mapViewer.shift(this.mapGridClient.currentGrid.pose.position.x, this.mapGridClient.currentGrid.pose.position.y)
-            // })
-
         })
         this.ros.on('error', (error) => {
             console.log((new Date).toTimeString() + ` - Error: ${error}`);
@@ -64,7 +41,6 @@ export class RosConnectionService {
             console.log((new Date()).toTimeString() + ' - Disconnected!');
             this.connected = false
             this.loading = false
-            document.getElementById('map').innerHTML = ''
         })
     }
 
@@ -100,54 +76,56 @@ export class RosConnectionService {
          }
     }
 
-    public startSM(goal){
-        console.log('startSM called...')
-        this.goal = goal;
-        this.goalString = this.setGoalString(this.goal);
-        this.service_busy = true;
-        this.service_response = '';
-        // define the Service to call
+    /***************************************************************************************
+    callService()
+    @description Función genérica para comunicarse con ros mediante Servicios
+    @params nameService: Servicio que será llamado
+    @params typeMessage: Tipo de mensaje que necesita el servicio (1º parámetro)
+    @params data: información que se quiere pasar a ros
+    @params callback: Función para manejar la respuesta del servicio
+    Por defecto hace un console.log del resultado del servicio
+    @date 23/04/2020
+    ****************************************************************************************/
+    callService(nameSerivce, typeMessage, data: {}, callback = (response: any) =>{console.log(response)}) {
+        
         let service = new ROSLIB.Service({
             ros: this.ros,
-            name: '/jinko_navigation',
-            serviceType: 'jinko_service_msg/jinko_service_msg'
+            name: nameSerivce,
+            serviceType: typeMessage
          })
-        // define the request
-        let request = new ROSLIB.ServiceRequest({
-            direction: this.goal,
-        })
-        // define a callback
+
+        let request = new ROSLIB.ServiceRequest(data);
+
         service.callService(request, (result) => {
             this.service_busy = false
-            this.service_response = JSON.stringify(result)
+            callback(result)
         }, (error) => {
             this.service_busy = false
             console.error(error)
         })
+    };
+
+    /***************************************************************************************
+    publishTopic()
+    @description Función genérica para publicar en un topic 
+    @params topicName: nombre del topic en que se quiere publicar.
+    @params typeMessage: typo de mensaje que requiere el Topic.
+    @params data?: información que se quiere publicar 
+    @date 23/04/2020
+    ****************************************************************************************/
+    public publishTopic(topicName: string, typeMessage: string, data = {}) {
+     
+         let topic = new ROSLIB.Topic({
+            ros: this.ros,
+            name: topicName,
+            messageType: typeMessage
+        });
+
+        topic.publish(new ROSLIB.Message(data));
     }
-
-    setGoalString(goal){
-
-        switch(goal){
-            case 0: 
-            break;
-            case 1: this.goalString = 'BED';
-            break;
-            case 2: this.goalString = 'GAMES';
-            break;
-            case 3: this.goalString = 'STUDY';
-            break;
-            case 4: this.goalString = 'TOUR';
-            break;
-            default:
-                this.goalString = 'no destination yet';
-        }
-        return this.goalString;
-    }
-
+       
     disconnect() {
-        if (this.connected) {
-            this.ros.close();
-        }
+        if (this.connected) this.ros.close();
     }
+
 }

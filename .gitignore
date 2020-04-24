@@ -110,3 +110,7 @@ temp/
 
 # End of https://www.gitignore.io/api/node
 .DS_Store
+
+jinkobot/src/assets/js/nipplejs/
+
+jinkobot/src/app/services/ros/directions.json
