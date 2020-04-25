@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { MJPEGCANVAS } from 'node_modules/roslib/build/roslib.js';
+// import { MJPEGCANVAS } from 'node_modules/roslib/build/roslib.js';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -40,10 +40,6 @@ export class StreamingService {
 
     public isStreamingSync() {
         return this.streaming;
-    }
-
-    public closeStreaming() {
-        this.streaming = false;
     }
 
 }

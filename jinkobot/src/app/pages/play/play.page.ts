@@ -19,11 +19,7 @@ export class PlayPage {
 
   ngOnInit() {
     this.rosService.connect();
-    this.streamingService.isStreming().subscribe((value) => {
-      this.streaming = value;
-    });
   }
-
 
   show($event) {
     console.log(this.view);
@@ -35,6 +31,13 @@ export class PlayPage {
             this.streaming = value;
         });
     }
+}
+
+closeStreaming() {
+  this.streamingService.setStreaming(false);
+  this.streamingService.isStreming().subscribe((value) => {
+      this.streaming = value;
+  });
 }
 
 }

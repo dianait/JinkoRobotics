@@ -15,11 +15,6 @@ import { JoystickComponent } from 'src/app/components/joystick/joystick.componen
     FormsModule,
     RouterModule.forChild([{ path: "", component: PlayPage }]),
   ],
-  declarations: [PlayPage, MapComponent, JoystickComponent, StreamingComponent],
-  exports: [
-    MapComponent,
-    JoystickComponent,
-    StreamingComponent
-  ]
+  declarations: [PlayPage, MapComponent, JoystickComponent, StreamingComponent]
 })
 export class PlayPageModule {}

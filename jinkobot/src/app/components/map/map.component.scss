@@ -31,8 +31,9 @@ p {
     font-weight: bold;
     text-align: center;
     height: 150px;
+    opacity: 0.5;
 }
 
 .map div:hover {
-    opacity: 0.5;
+    opacity: 1;
 }

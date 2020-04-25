@@ -2,7 +2,7 @@ import { NavigationService } from './../../services/ros/navigation.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-map',
+  selector: 'map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })

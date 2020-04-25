@@ -1,16 +1,50 @@
-<ion-toolbar  *ngIf="!streaming">
-    <ion-segment [(ngModel)]="view" (ionChange)="show($event)">
-        <ion-segment-button value="map">
-            <ion-icon name="map-outline"></ion-icon>
+<ion-toolbar  
+    *ngIf="!streaming">
+    <ion-segment 
+        [(ngModel)]="view" 
+        (ionChange)="show($event)">
+        <ion-segment-button 
+            value="map">
+            <ion-icon 
+                name="map-outline">
+            </ion-icon>
         </ion-segment-button>
-        <ion-segment-button value="camera">
-            <ion-icon name="camera-outline"></ion-icon>
+        <ion-segment-button 
+            value="camera">
+                <ion-icon 
+                    name="camera-outline">
+                </ion-icon>
         </ion-segment-button>
     </ion-segment>
 </ion-toolbar>
-<ion-content>
-<streaming *ngIf="streaming" [streaming]="streaming"></streaming>
-<app-map [streaming]="streaming" *ngIf="!streaming"></app-map>
 
-<app-joystick *ngIf="streaming"></app-joystick>
+<ion-content>
+
+<map 
+    *ngIf="!streaming"  
+    [streaming]="streaming">
+</map>
+
+<streaming 
+    *ngIf="streaming" 
+    [streaming]="streaming">
+</streaming>
+
+<ion-fab 
+    vertical="start" 
+    horizontal="end" 
+    slot="fixed" 
+    style="padding-top:10px;"  
+    *ngIf="streaming"> 
+
+    <ion-fab-button 
+        color="light">
+        <ion-icon 
+            name="close" 
+            (click)="closeStreaming()">
+        </ion-icon>
+    </ion-fab-button>
+
+</ion-fab>
+
 

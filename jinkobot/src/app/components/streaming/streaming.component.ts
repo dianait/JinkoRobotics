@@ -8,17 +8,28 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class StreamingComponent implements OnInit {
   @Input()
-  public streaming: boolean;
+  public streaming;;
 
-  constructor(private streamingService: StreamingService) { 
-   
-  }
+  constructor(private streamingService: StreamingService) {}
 
   ngOnInit() {
-    if (this.streaming) {
-      this.streamingService.setCamera();
-    }
+
+    this.streamingService.isStreming().subscribe((value) => {
+      this.streaming = value;
+    });
+
+    if (this.streaming) this.streamingService.setCamera();
  
+  }
+
+  closeStreaming() {
+    this.streamingService.setStreaming(false);
+    // console.log('setStreaming', this.streaming);
+    this.streamingService.isStreming().subscribe((value) => {
+      this.streaming = value;
+    });
+    // console.log( 'subscribe', this.streaming);
+
   }
 
 }
