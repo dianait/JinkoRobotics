@@ -1,5 +1,4 @@
 import { NavigationService } from './../../services/ros/navigation.service';
-import { RosConnectionService } from './../../services/ros/ros.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -12,10 +11,10 @@ export class MapComponent implements OnInit {
   public streaming;
   goalString: any;
 
-  constructor(private rosConnectionService: RosConnectionService, private navigationService: NavigationService) { }
+  constructor(private navigationService: NavigationService) { }
 
   ngOnInit() {
-    this.rosConnectionService.connect();
+    
   }
 
     start(destination_id) {

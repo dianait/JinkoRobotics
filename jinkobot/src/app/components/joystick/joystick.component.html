@@ -1,10 +1,26 @@
-  <ion-fab vertical="bottom" horizontal="start" slot="fixed"></ion-fab>
-    <ion-button (click)="navigationService.move('U')" style="padding-left:34%;">  <ion-icon name="arrow-up"></ion-icon></ion-button>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+
+    <ion-button (click)="navigationService.move('U')" style="padding-left:34%;">
+      <ion-icon name="arrow-up"></ion-icon>
+    </ion-button>
+    
     <div style="display:flex">
-      <ion-button (click)="navigationService.move('L')">  <ion-icon name="arrow-back"></ion-icon></ion-button>
-      <ion-button (click)="navigationService.move('S')">  <ion-icon name="square"></ion-icon></ion-button>
-      <ion-button (click)="navigationService.move('R')">  <ion-icon name="arrow-forward"></ion-icon></ion-button>
+      <ion-button (click)="navigationService.move('L')">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="navigationService.move('S')">
+        <ion-icon name="square"></ion-icon>
+      </ion-button>
+      
+      <ion-button (click)="navigationService.move('R')">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-button>
     </div>
-    <ion-button (click)="navigationService.move('D')" style="padding-left:34%;">  <ion-icon name="arrow-down"></ion-icon></ion-button>
+
+    <ion-button (click)="navigationService.move('D')" style="padding-left:34%;">
+      <ion-icon name="arrow-down"></ion-icon>
+    </ion-button>
+
   </ion-fab>
 

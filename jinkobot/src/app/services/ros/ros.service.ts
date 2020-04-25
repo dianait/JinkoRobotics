@@ -16,10 +16,8 @@ export class RosConnectionService {
     ros: ROSLIB.Ros;
     url: string = 'localhost:9090';
     connected: boolean = false;
-    loading: boolean;
-    service_busy: boolean;
-    param_val: any;
-    param_read_val: any;
+    loading: boolean = false;
+    service_busy: boolean = false;
 
     constructor() { }
 
@@ -28,7 +26,6 @@ export class RosConnectionService {
             url: 'ws://' + this.url
         })
 
-        // define callbacks
         this.ros.on('connection', () => {
             this.connected = true
             this.loading = false
@@ -42,38 +39,6 @@ export class RosConnectionService {
             this.connected = false
             this.loading = false
         })
-    }
-
-    public set_param(){
-        console.log('set_param called...')
-         // set service busy
-         this.service_busy = true
-
-         let web_param = new ROSLIB.Param({
-            ros: this.ros,
-            name: 'web_param'
-         })
-
-         web_param.set(this.param_val)
-         this.service_busy = false
-         console.log('Reading param')
-     }
-
-    public read_param(){
-          // set service busy
-         this.service_busy = true
-
-         let web_param = new ROSLIB.Param({
-            ros: this.ros,
-            name: 'web_param'
-         })
-
-         web_param.get((value) => {
-            this.service_busy = false
-            this.param_read_val = value
-         }), (err) =>{
-            this.service_busy = false
-         }
     }
 
     /***************************************************************************************

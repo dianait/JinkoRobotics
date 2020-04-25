@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
-// import { MJPEGCANVAS } from 'node_modules/roslib/build/roslib.js';
+import { MJPEGCANVAS } from 'node_modules/roslib/build/roslib.js';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -25,21 +25,25 @@ export class StreamingService {
             height: window.innerHeight,
             topic: '/turtlebot3/camera/image_raw',
             ssl: false,
-        })
+        }) || {};
     } 
 
-    setStreaming(bol){
+    public setStreaming(bol){
         this.streaming = bol;
     }
 
-    isStreming() {
+    public isStreming() {
         return new Observable<boolean>((observer) => {
             observer.next(this.streaming);
         });
     }
 
-    isStreamingSync() {
+    public isStreamingSync() {
         return this.streaming;
+    }
+
+    public closeStreaming() {
+        this.streaming = false;
     }
 
 }

@@ -1,5 +1,6 @@
-import { StreamingService } from 'src/app/services/ros/streaming.service';
 import { RosConnectionService } from 'src/app/services/ros/ros.service';
+import { StreamingService } from 'src/app/services/ros/streaming.service';
+
 import { Component, Input } from "@angular/core";
 
 @Component({
@@ -14,12 +15,13 @@ export class PlayPage {
   view: string = "map";
   camera: boolean = true;
   
-  constructor(private rosstreamingservice: RosConnectionService, private streamingService: StreamingService) {}
+  constructor(private rosService: RosConnectionService, private streamingService: StreamingService) {}
 
   ngOnInit() {
+    this.rosService.connect();
     this.streamingService.isStreming().subscribe((value) => {
       this.streaming = value;
-      });
+    });
   }
 
 
@@ -33,14 +35,6 @@ export class PlayPage {
             this.streaming = value;
         });
     }
-}
-
-closeStreaming() {
-console.log('CloseStreaming antes', this.streaming)
-this.streamingService.setStreaming(false);
-this.streamingService.isStreming().subscribe((value) => {
-    this.streaming = value;
-});
 }
 
 }
