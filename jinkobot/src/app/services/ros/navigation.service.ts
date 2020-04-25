@@ -39,11 +39,11 @@ setGoalString(goal){
     switch(goal){
         case 0: 
         break;
-        case 1: this.goalString = 'ENTRADA';
+        case 1: this.goalString = 'DOOR';
         break;
-        case 2: this.goalString = 'ZONA DE ESTUDIO';
+        case 2: this.goalString = 'STUDY';
         break;
-        case 3: this.goalString = 'ZONA DE JUEGOS';
+        case 3: this.goalString = 'GAMES';
         break;
         case 4: this.goalString = 'TOUR';
         break;
