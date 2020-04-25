@@ -1,3 +1,10 @@
+/*********************************************************************
+@name streaming.service.ts
+@description Servicio para iniciar el streaming
+@author Diana Hernández Soler
+@date 06/04/2020
+@license GPLv3
+*********************************************************************/
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
 // import { MJPEGCANVAS } from 'node_modules/roslib/build/roslib.js';
