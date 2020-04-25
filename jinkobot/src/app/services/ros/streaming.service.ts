@@ -5,48 +5,46 @@
 @date 06/04/2020
 @license GPLv3
 *********************************************************************/
-import { Injectable } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { Injectable } from "@angular/core";
+import { Platform } from "@ionic/angular";
 // import { MJPEGCANVAS } from 'node_modules/roslib/build/roslib.js';
-import { Observable } from 'rxjs';
+import { Observable } from "rxjs";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: "root",
 })
-
 export class StreamingService {
-    streaming: boolean = false;
-    MJPEGCANVAS: any;
+  streaming: boolean = false;
+  MJPEGCANVAS: any;
 
-    constructor(private plt: Platform) { }
+  constructor(private plt: Platform) {}
 
-    public setCamera() {
+  public setCamera() {
+    // Si es dispositivo movil bloquear en posición landscape
+    if (this.plt.testUserAgent("desktop"))
+      screen.orientation.lock("landscape-primary");
 
-        // Si es dispositivo movil bloquear en posición landscape
-        if (this.plt.testUserAgent('desktop')) screen.orientation.lock("landscape-primary");
-        
-        new MJPEGCANVAS.Viewer({
-            divID: 'divCamera',
-            host: 'localhost',
-            width: window.innerWidth,
-            height: window.innerHeight,
-            topic: '/turtlebot3/camera/image_raw',
-            ssl: false,
-        }) || {};
-    } 
+    new this.MJPEGCANVAS.Viewer({
+      divID: "divCamera",
+      host: "localhost",
+      width: window.innerWidth,
+      height: window.innerHeight,
+      topic: "/turtlebot3/camera/image_raw",
+      ssl: false,
+    }) || {};
+  }
 
-    public setStreaming(bol){
-        this.streaming = bol;
-    }
+  public setStreaming(bol) {
+    this.streaming = bol;
+  }
 
-    public isStreming() {
-        return new Observable<boolean>((observer) => {
-            observer.next(this.streaming);
-        });
-    }
+  public isStreming() {
+    return new Observable<boolean>((observer) => {
+      observer.next(this.streaming);
+    });
+  }
 
-    public isStreamingSync() {
-        return this.streaming;
-    }
-
+  public isStreamingSync() {
+    return this.streaming;
+  }
 }
