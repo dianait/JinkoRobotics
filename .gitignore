@@ -110,6 +110,8 @@ temp/
 
 # End of https://www.gitignore.io/api/node
 .DS_Store
+.idea
+./jinko_robot_ros/.idea 
 
 jinkobot/src/assets/js/nipplejs/
 
