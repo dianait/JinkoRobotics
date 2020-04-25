@@ -1,0 +1,16 @@
+<?xmlversion="1.0"?>
+<package format="2">
+       <name>NAVEGACION_AUTONOMA</name>
+       <version>1.2.1</version>
+       <description> ROS packages PARA NAVEGACION AUTONOMA
+       </description>
+              <license>Apache 2.0</license>
+       <license>BSD</license>
+       <author email="JINKO@JINKOROBOTICS.es">Jinko</author>
+       <maintainer email="JINKO@JINKOROBOTICS.es">Jinko</maintainer>
+   <url type="website">http://jinkorobotics.es </url>
+<url type="repository">https://github.com/DianaIT/JinkoRobotics/tree/develop/jinko_robot_ros</url>
+    <buildtool_depend>catkin</buildtool_depend>
+       <exec_depend>my_navigation_stack</exec_depend>
+<export><metapackage/></export>
+</package>
