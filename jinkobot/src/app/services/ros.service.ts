@@ -13,7 +13,7 @@ import * as ROSLIB from 'roslib';
 })
 export class RosConnectionService {
     ros: ROSLIB.Ros;
-    url: string = 'localhost:9090';
+    url: string = '192.168.1.111:9090';
     connected: boolean = false;
     loading: boolean;
     mapViewer: any;

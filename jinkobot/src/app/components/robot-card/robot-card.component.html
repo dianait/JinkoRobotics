@@ -1,8 +1,15 @@
-<ion-card>
-  <ion-item>
+<ion-card id="card" style="opacity:0.5">
+  <ion-item  (click)="connect()">
     <ion-icon slot="start" src="../../assets/icon/robot.svg"></ion-icon>
     <ion-label>{{ robot.alias }}</ion-label>
-    <ion-button fill="outline" slot="end">connect</ion-button>
+    <ion-badge *ngIf="connected" color="success">CONNECTED</ion-badge>
+    <ion-icon slot="end" name="battery-full"></ion-icon>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon slot="start" name="speedometer">{{ speed }}</ion-icon> 
+    <ion-range color="secondary" [(ngModel)]="speed" min="1" max="5" step="1"> 
+    </ion-range>
   </ion-item>
 
   <ion-card-content> <strong>ID:</strong> {{ robot.id }}</ion-card-content>

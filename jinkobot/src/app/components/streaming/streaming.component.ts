@@ -24,12 +24,9 @@ export class StreamingComponent implements OnInit {
 
   closeStreaming() {
     this.streamingService.setStreaming(false);
-    // console.log('setStreaming', this.streaming);
     this.streamingService.isStreming().subscribe((value) => {
       this.streaming = value;
     });
-    // console.log( 'subscribe', this.streaming);
-
   }
 
 }

@@ -7,14 +7,13 @@
 *********************************************************************/
 import { Injectable } from '@angular/core';
 import * as ROSLIB from 'roslib';
-import { StreamingService } from './streaming.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RosConnectionService {
     ros: ROSLIB.Ros;
-    url: string = 'localhost:9090';
+    url: string = '192.168.1.111:9090';
     connected: boolean = false;
     loading: boolean = false;
     service_busy: boolean = false;
@@ -43,6 +42,7 @@ export class RosConnectionService {
 
     /***************************************************************************************
     callService()
+    @author Diana Hernández
     @description Función genérica para comunicarse con ros mediante Servicios
     @params nameService: Servicio que será llamado
     @params typeMessage: Tipo de mensaje que necesita el servicio (1º parámetro)
@@ -72,6 +72,7 @@ export class RosConnectionService {
 
     /***************************************************************************************
     publishTopic()
+    @author Diana Hernández
     @description Función genérica para publicar en un topic 
     @params topicName: nombre del topic en que se quiere publicar.
     @params typeMessage: typo de mensaje que requiere el Topic.
