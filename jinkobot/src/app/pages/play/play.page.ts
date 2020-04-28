@@ -38,6 +38,7 @@ closeStreaming() {
   this.streamingService.isStreming().subscribe((value) => {
       this.streaming = value;
   });
+  screen.orientation.unlock();
 }
 
 }

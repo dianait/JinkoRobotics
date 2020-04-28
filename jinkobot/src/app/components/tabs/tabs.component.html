@@ -1,19 +1,19 @@
-<ion-tabs>
-  <ion-header>
+<ion-tabs >
+  <ion-header *ngIf="streaming">
     <app-header></app-header>
   </ion-header>
-  <ion-tab-bar slot="bottom">
+  <ion-tab-bar slot="bottom" *ngIf="streaming">
     <ion-tab-button tab="connect">
       <ion-icon name="qr-code"></ion-icon>
       <ion-label>Connect</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="play">
+    <ion-tab-button tab="play" *ngIf="streaming">
       <ion-icon name="move"></ion-icon>
       <ion-label>Play</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="settings">
+    <ion-tab-button tab="settings" *ngIf="streaming">
       <ion-icon name="options"></ion-icon>
       <ion-label>Settings</ion-label>
     </ion-tab-button>

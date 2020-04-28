@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { StreamingService } from 'src/app/services/ros/streaming.service';
+import { NavigationService } from 'src/app/services/ros/navigation.service';
 
 @Component({
   selector: 'joystick',
@@ -9,10 +10,10 @@ export class JoystickComponent implements OnInit {
   @Input()
   public streaming;
 
-  constructor(private rosstreamingservice: StreamingService) { }
+  constructor(private navigationService: NavigationService, private streamingService: StreamingService) { }
 
   ngOnInit() {
-    this.rosstreamingservice.isStreming().subscribe((value) => {
+    this.streamingService.isStreming().subscribe((value) => {
         this.streaming = value;
     });
   }
