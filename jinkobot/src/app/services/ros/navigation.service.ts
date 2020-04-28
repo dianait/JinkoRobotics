@@ -15,7 +15,7 @@ export class NavigationService {
     goalString: string;
     service_busy: boolean;
     service_response: any;
-    speed = 0.5;
+    speed: number = 0.5;
 
     constructor(private rosService: RosConnectionService) {}
 
@@ -54,10 +54,12 @@ setGoalString(goal){
 }
 
     public move(direction) {
+
         let topicName: string = '/cmd_vel';
         let typeMessage: string = 'geometry_msgs/Twist';
         let message = this.setDirection(direction, this.speed);
         this.rosService.publishTopic(topicName, typeMessage, message);
+
     }
 
     private setDirection(direction, speed) {

@@ -1,18 +1,19 @@
-import { StreamingService } from './../../services/ros/streaming.service';
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 
 @Component({
   selector: "app-tabs",
   templateUrl: "tabs.component.html",
 })
-export class TabsComponent implements OnInit {
-  streaming: boolean = true;
-  constructor(private streamingService: StreamingService) {}
+export class TabsComponent {
+  _show: boolean = true;
 
-  ngOnInit() {
-    this.streamingService.isStreming().subscribe((value) => {
-      this.streaming = value;
-    });
+  constructor() {}
 
+  public show() {
+    this._show = true;
+  }
+
+  public hide() {
+    this._show = false;
   }
 }

@@ -1,3 +1,4 @@
+import { RosConnectionService } from 'src/app/services/ros/ros.service';
 /*********************************************************************
 @name streaming.service.ts
 @description Servicio para iniciar el streaming
@@ -5,9 +6,9 @@
 @date 06/04/2020
 @license GPLv3
 *********************************************************************/
+
 import { Injectable } from "@angular/core";
 import { Platform } from "@ionic/angular";
-import { Observable } from "rxjs";
 declare let MJPEGCANVAS;
 @Injectable({
   providedIn: "root",
@@ -15,42 +16,45 @@ declare let MJPEGCANVAS;
 
 export class StreamingService {
   streaming: boolean = false;
-  MJPEGCANVAS: any;
-  screen = { w: window.innerWidth, h: window.innerHeight }
 
-  constructor(private plt: Platform) {}
+  // Tamaño de la pantalla
+  screenSize = { 
+    w: window.innerWidth, 
+    h: window.innerHeight 
+  }
+
+  constructor( 
+    private plt: Platform, 
+    private rosService: RosConnectionService ) {}
 
   public setCamera() {
-
+   
     // Si es dispositivo movil bloquear en posición landscape
     if (!this.plt.testUserAgent("desktop")) {
+
       screen.orientation.lock("landscape-primary");
-      this.screen.w = window.innerHeight;
-      this.screen.h = window.innerWidth;
+      this.screenSize.w = this.plt.height();
+      this.screenSize.h = this.plt.width();
+
     }
 
     new MJPEGCANVAS.Viewer({
       divID: "divCamera",
-      host: "192.168.1.111",
-      width: this.screen.w,
-      height: this.screen.h,
-      topic: "/turtlebot3/camera/image_raw",
+      host: this.rosService.getUrl() + ":8080",
+      width: this.plt.width(),
+      height: this.plt.height(),
+      topic: '/turtlebot3/camera/image_raw',
       ssl: false,
     }) || {};
 
   }
 
-  public setStreaming(bol) {
+  public setStreaming(bol: boolean): boolean {
     this.streaming = bol;
+    return bol;
   }
 
-  public isStreming() {
-    return new Observable<boolean>((observer) => {
-      observer.next(this.streaming);
-    });
-  }
-
-  public isStreamingSync() {
+  public isStreamingSync(): boolean {
     return this.streaming;
   }
 }

@@ -1,6 +1,7 @@
 import { StreamingService } from 'src/app/services/ros/streaming.service';
 import { Component, OnInit, Input } from '@angular/core';
 
+
 @Component({
   selector: 'streaming',
   templateUrl: './streaming.component.html',
@@ -8,25 +9,22 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class StreamingComponent implements OnInit {
   @Input()
-  public streaming;;
+  public streaming: boolean;
 
-  constructor(private streamingService: StreamingService) {}
+  constructor(
+    private streamingService: StreamingService
+  ) {}
 
   ngOnInit() {
-
-    this.streamingService.isStreming().subscribe((value) => {
-      this.streaming = value;
-    });
 
     if (this.streaming) this.streamingService.setCamera();
  
   }
 
   closeStreaming() {
+
     this.streamingService.setStreaming(false);
-    this.streamingService.isStreming().subscribe((value) => {
-      this.streaming = value;
-    });
+
   }
 
 }

@@ -7,22 +7,28 @@
 *********************************************************************/
 import { Injectable } from '@angular/core';
 import * as ROSLIB from 'roslib';
+import { Platform } from '@ionic/angular';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RosConnectionService {
     ros: ROSLIB.Ros;
-    url: string = '192.168.1.111:9090';
+    url: string = '192.168.1.111';
+    port: '9090';
     connected: boolean = false;
     loading: boolean = false;
     service_busy: boolean = false;
 
-    constructor() { }
+    constructor(private plt: Platform) { }
 
     connect() {
+
+        // PARA PROBAR EN MOVIL: CAMBIAR POR LA IP DE TU ORDEANDOR, el movil tiene que estar conectado a la misma red wifi
+        if (this.plt.testUserAgent("desktop")) this.url = "localhost";
+
         this.ros = new ROSLIB.Ros({
-            url: 'ws://' + this.url
+            url: 'ws://' + this.url + ":" + this.port
         })
 
         this.ros.on('connection', () => {
@@ -38,6 +44,10 @@ export class RosConnectionService {
             this.connected = false
             this.loading = false
         })
+    }
+
+    public getUrl() {
+        return this.url;
     }
 
     /***************************************************************************************

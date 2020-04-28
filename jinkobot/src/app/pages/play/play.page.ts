@@ -1,7 +1,8 @@
+import { TabsComponent } from './../../components/tabs/tabs.component';
 import { RosConnectionService } from 'src/app/services/ros/ros.service';
 import { StreamingService } from 'src/app/services/ros/streaming.service';
-
 import { Component, Input } from "@angular/core";
+import { Platform } from "@ionic/angular";
 
 @Component({
   selector: "app-tab2",
@@ -9,36 +10,44 @@ import { Component, Input } from "@angular/core";
 })
 export class PlayPage {
   @Input()
-  public streaming;
+  public streaming: boolean;
 
-  url: string = 'localhost:9090';
   view: string = "map";
   camera: boolean = true;
   
-  constructor(private rosService: RosConnectionService, private streamingService: StreamingService) {}
+  constructor(
+    private rosService: RosConnectionService, 
+    private streamingService: StreamingService, 
+    private plt: Platform, 
+    public tabs: TabsComponent
+    ) {}
 
   ngOnInit() {
     this.rosService.connect();
   }
 
-  show($event) {
-    console.log(this.view);
+  show() {
+
     if (this.view == 'camera') {
 
-        this.streamingService.setStreaming(true);
-        this.view = 'map';
-        this.streamingService.isStreming().subscribe((value) => {
-            this.streaming = value;
-        });
+      // Ponemos el streaming a true
+      this.streaming = this.streamingService.setStreaming(true);
+      // Ocultamos el header y las tabs para pantalla completa
+      this.tabs.hide();
+      // Cambiamos a la pestaña Mapa para que no se quede activa la pestaña cámara al volver a la página Play
+      this.view = 'map';
+      
     }
-}
+  }
 
-closeStreaming() {
-  this.streamingService.setStreaming(false);
-  this.streamingService.isStreming().subscribe((value) => {
-      this.streaming = value;
-  });
-  screen.orientation.unlock();
-}
+  closeStreaming() {
 
+    // Si es movil desbloquemos el giro de pantalla
+    if (!this.plt.testUserAgent("desktop")) screen.orientation.unlock();
+    // Ponemos el streaming a false
+    this.streaming = this.streamingService.setStreaming(false);
+    // Mostramos el header y las tabs
+    this.tabs.show();
+    
+  }
 }

@@ -1,25 +1,23 @@
 import { NavigationService } from './../../services/ros/navigation.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-export class MapComponent implements OnInit {
+export class MapComponent {
   @Input()
-  public streaming;
-  goalString: any;
+  public streaming: boolean;
+  goalString: string;
 
-  constructor(private navigationService: NavigationService) { }
+  constructor(
+    private navigationService: NavigationService
+  ) {}
 
-  ngOnInit() {
-    
+  public start( destination_id: string ) {
+    this.navigationService.startSM(destination_id);
+    this.goalString = this.navigationService.setGoalString(destination_id);
   }
-
-    start(destination_id) {
-        this.navigationService.startSM(destination_id);
-        this.goalString = this.navigationService.setGoalString(destination_id);
-    }
 
 }
