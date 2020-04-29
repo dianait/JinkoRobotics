@@ -1,4 +1,3 @@
-import { RosConnectionService } from 'src/app/services/ros/ros.service';
 /*********************************************************************
 @name streaming.service.ts
 @description Servicio para iniciar el streaming
@@ -6,7 +5,7 @@ import { RosConnectionService } from 'src/app/services/ros/ros.service';
 @date 06/04/2020
 @license GPLv3
 *********************************************************************/
-
+import { RosConnectionService } from 'src/app/services/ros/ros.service';
 import { Injectable } from "@angular/core";
 import { Platform } from "@ionic/angular";
 declare let MJPEGCANVAS;
@@ -33,16 +32,16 @@ export class StreamingService {
     if (!this.plt.testUserAgent("desktop")) {
 
       screen.orientation.lock("landscape-primary");
-      this.screenSize.w = this.plt.height();
-      this.screenSize.h = this.plt.width();
+      this.screenSize.w = window.innerHeight;
+      this.screenSize.h = window.innerWidth;
 
     }
 
     new MJPEGCANVAS.Viewer({
       divID: "divCamera",
-      host: this.rosService.getUrl() + ":8080",
-      width: this.plt.width(),
-      height: this.plt.height(),
+      host: '192.168.1.111',
+      width: this.screenSize.w,
+      height: this.screenSize.h,
       topic: '/turtlebot3/camera/image_raw',
       ssl: false,
     }) || {};

@@ -14,6 +14,11 @@ import { Platform } from '@ionic/angular';
 })
 export class RosConnectionService {
     ros: ROSLIB.Ros;
+    /* PARA PROBAR EN EL MOVIL:
+    Hay que añadir
+       android:usesCleartextTraffic="true"
+    dentro de <application> en el AndroidManifest.xml 
+    CAMBIAR POR LA IP DE TU ORDEANDOR, el movil tiene que estar conectado a la misma red wifi */
     url: string = '192.168.1.111';
     port: '9090';
     connected: boolean = false;
@@ -24,11 +29,10 @@ export class RosConnectionService {
 
     connect() {
 
-        // PARA PROBAR EN MOVIL: CAMBIAR POR LA IP DE TU ORDEANDOR, el movil tiene que estar conectado a la misma red wifi
-        if (this.plt.testUserAgent("desktop")) this.url = "localhost";
+        if (this.plt.testUserAgent('desktop')) this.url = 'localhost' + ':' + this.port;
 
         this.ros = new ROSLIB.Ros({
-            url: 'ws://' + this.url + ":" + this.port
+            url: 'ws://192.168.1.111:9090' ,
         })
 
         this.ros.on('connection', () => {

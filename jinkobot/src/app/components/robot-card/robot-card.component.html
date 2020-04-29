@@ -8,8 +8,11 @@
 
   <ion-item>
     <ion-icon slot="start" name="speedometer">{{ speed }}</ion-icon> 
-    <ion-range color="secondary" [(ngModel)]="speed" min="1" max="5" step="1"> 
-    </ion-range>
+    
+      <ion-badge color="secondary" id="low" class="speedSelectors" (click)="changeSpeed(this, 'low')">LOW</ion-badge>
+      <ion-badge color="warning" id="medium" class="speedSelectors" (click)="changeSpeed(this, 'medium')">MEDIUM</ion-badge>
+      <ion-badge color="danger" id="fast" class="speedSelectors" (click)="changeSpeed(this, 'fast')">FAST</ion-badge>
+      
   </ion-item>
 
   <ion-card-content> <strong>ID:</strong> {{ robot.id }}</ion-card-content>
