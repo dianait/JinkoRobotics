@@ -1,3 +1,4 @@
 <ion-app>
-  <app-tabs></app-tabs>
+  <app-on-boarding *ngIf="storage.onBoarding"></app-on-boarding>
+  <app-tabs *ngIf="!storage.onBoarding"></app-tabs>
 </ion-app>
