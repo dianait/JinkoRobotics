@@ -1,6 +1,11 @@
 ion-content {
   --overflow: hidden;
 }
+
+ion-slides {
+  --bullet-background-active: var(--ion-color-tertiary);
+}
+
 ion-slide {
   display: block;
 }
@@ -22,7 +27,7 @@ h3 {
   height: 60px;
 }
 
-@media screen and (max-height: 775px) {
+@media screen and (max-height: 815px) {
   img {
     width: 70%;
   }
