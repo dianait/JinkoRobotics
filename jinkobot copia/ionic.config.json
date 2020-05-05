@@ -1,7 +1,0 @@
-{
-  "name": "jinkobot",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}

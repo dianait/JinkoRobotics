@@ -15,12 +15,18 @@ export class StorageService {
     });
   }
 
+  set(key: string, value: any) {
+    this.storage.set(key, value);
+  }
+
+  setOnBoarding(value: boolean) {
+    this.onBoarding = value;
+  }
+
   async isTheFirstTime(): Promise<boolean> {
     let firstTime: boolean;
     await this.storage.get("firstTime").then((data) => {
-      data === null
-        ? ((firstTime = true), this.storage.set("firstTime", 0))
-        : (firstTime = false);
+      data === false ? (firstTime = false) : (firstTime = true);
     });
     return firstTime;
   }
