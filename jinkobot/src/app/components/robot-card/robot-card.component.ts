@@ -1,53 +1,56 @@
-import { Component, OnInit, Input, ViewChild } from "@angular/core";
-import {} from "protractor";
-import { IRobot } from "src/app/models/IRobot";
-import { NodeCompatibleEventEmitter } from 'rxjs/internal/observable/fromEvent';
+import { RobotListComponent } from 'src/app/components/robot-list/robot-list.component';
+import { Component, OnInit, Input } from '@angular/core';
+import { IRobot } from 'src/app/models/IRobot';
 
 @Component({
-  selector: "app-robot-card",
-  templateUrl: "./robot-card.component.html",
+  selector: 'app-robot-card',
+  templateUrl: './robot-card.component.html',
   styleUrls: ['./robot-card.component.scss']
 })
 
 export class RobotCardComponent implements OnInit {
-  @Input() robot: IRobot;
 
-  connected: boolean = false;
-  speed: number;
+  @Input() robot: IRobot;
+  connected: boolean;
+  speed: string;
   speeds = {
     low: 0.5,
     medium: 1.5,
     fast: 3
+  };
+
+  constructor( private robotList: RobotListComponent ) {}
+
+  ngOnInit() {
+
+    const badge = document.getElementById(this.speed || 'low');
+    badge.classList.add('selected');
+
   }
 
-  constructor() {}
+  public changeSpeed(speedString: string) {
 
-  ngOnInit() {}
+    // Eliminamos la clase selected si algun botón ya la tiene
+    this.deselectAllSpeedBadges();
 
-  public connect() {
-    console.log(`Robot ` + this.robot.alias + ' contectado;');
-    let card = document.getElementById("card");
-    card.style.opacity = '1';
-    card.style.border = "1px solid #107a8b";
-    this.connected = true;
+    // Guardamos la velocidad escogida en la variable global speed
+    this.speed = speedString;
+
+    // Añadimos la clase selected al boton pulsado
+    const badge = document.getElementById(speedString);
+    badge.classList.add('selected');
+
   }
 
-  public changeSpeed( element: any, speedString: string) {
-    this.badgetsSpeedInit();
-    console.log(element);
-    element.speed = this.speeds[speedString];
-    let badget = document.getElementById(speedString);
-    console.log(badget);
-    badget.classList.add('selected');
-  }
+  private deselectAllSpeedBadges() {
 
-  private badgetsSpeedInit() {
-    let low = document.getElementById('low');
-    let medium = document.getElementById('medium');
-    let fast = document.getElementById('fast');
-    low.classList.remove('selected');
-    medium.classList.remove('selected');
-    fast.classList.remove('selected');
+    // Cogemos todos los elementos con la clase 'selected'
+    const badges = document.getElementsByClassName('selected');
+
+    // Y se la quitamos
+    Array.prototype.filter.call(badges, (b: HTMLElement) => {
+      b.classList.remove('selected');
+    });
 
   }
 

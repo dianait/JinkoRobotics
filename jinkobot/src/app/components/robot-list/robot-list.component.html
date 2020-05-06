@@ -1,5 +1,5 @@
-<app-robot-card
+<app-robot-card (click)="connect(this)" style="opacity:0.5"
   *ngFor="let robot of robots"
   [robot]="robot"
-  (click)="presentModal(robot)"
 ></app-robot-card>
+  <!-- (click)="presentModal(robot)" -->
