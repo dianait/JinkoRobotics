@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">jinkobot</string>
-    <string name="title_activity_main">jinkobot</string>
-    <string name="package_name">com.jinkorobotics.com</string>
-    <string name="custom_url_scheme">com.jinkorobotics.com</string>
-</resources>

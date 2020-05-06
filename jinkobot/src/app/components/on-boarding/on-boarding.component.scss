@@ -1,0 +1,34 @@
+ion-content {
+  --overflow: hidden;
+}
+
+ion-slides {
+  --bullet-background-active: var(--ion-color-tertiary);
+}
+
+ion-slide {
+  display: block;
+}
+img {
+  max-height: 400px;
+  max-width: 400px;
+}
+.slide-img {
+  padding: 20px;
+}
+
+h3 {
+  font-size: 30px;
+  font-weight: lighter;
+  margin-bottom: 60px;
+}
+
+.btn-primary {
+  height: 60px;
+}
+
+@media screen and (max-height: 815px) {
+  img {
+    width: 70%;
+  }
+}

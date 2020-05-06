@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/diana/Documentos/Robotica/JinkoRobotics/jinkobot/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v11/values-v11.xml",
+            "map": [
+                {
+                    "source": "/home/diana/.gradle/caches/transforms-1/files-1.1/zxing-android-embedded-3.3.0.aar/b69e00269fdbf11877c90a69c6767511/res/values-v11/values-v11.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "3",
+                        "endColumns": "10",
+                        "endOffsets": "150"
+                    }
+                }
+            ]
+        }
+    ]
+}

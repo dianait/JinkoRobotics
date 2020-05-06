@@ -8,7 +8,28 @@ import { Injectable } from "@angular/core";
 })
 export class StorageService {
   public robots: IRobot[];
-  constructor(private storage: Storage) {}
+  public onBoarding: boolean;
+  constructor(private storage: Storage) {
+    this.isTheFirstTime().then((data) => {
+      this.onBoarding = data;
+    });
+  }
+
+  set(key: string, value: any) {
+    this.storage.set(key, value);
+  }
+
+  setOnBoarding(value: boolean) {
+    this.onBoarding = value;
+  }
+
+  async isTheFirstTime(): Promise<boolean> {
+    let firstTime: boolean;
+    await this.storage.get("firstTime").then((data) => {
+      data === false ? (firstTime = false) : (firstTime = true);
+    });
+    return firstTime;
+  }
 
   pushRobot(id: string, alias: string) {
     let existRobot: boolean;

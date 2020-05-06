@@ -1,9 +1,0 @@
-{
-  "appId": "com.jinkorobotics.com",
-  "appName": "jinkobot",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "www",
-  "cordova": {},
-  "linuxAndroidStudioPath": "/usr/share/android-studio/bin/studio.sh"
-}

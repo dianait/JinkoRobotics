@@ -11,9 +11,15 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { IonicStorageModule } from "@ionic/storage";
+import { OnBoardingComponent } from "./components/on-boarding/on-boarding.component";
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, TabsComponent],
+  declarations: [
+    AppComponent,
+    OnBoardingComponent,
+    HeaderComponent,
+    TabsComponent,
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

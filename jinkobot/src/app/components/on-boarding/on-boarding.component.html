@@ -1,0 +1,38 @@
+<ion-content fullscreen="true" slot="fixed">
+  <ion-slides pager="true">
+    <ion-slide *ngFor="let slide of slides">
+      <div class="slide-img">
+        <img [src]="slide.img" />
+      </div>
+      <div>
+        <h3 [innerHTML]="slide.titulo"></h3>
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+  <ion-footer class="ion-no-border">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="10" offset="1">
+          <ion-button
+            class="btn-primary"
+            color="tertiary"
+            expand="full"
+            shape="round"
+            mode="ios"
+            >COMPRAR JINKOBOT</ion-button
+          >
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="10" offset="1">
+          <ion-button (click)="close()" fill="clear" expand="full">
+            <ion-label color="dark">
+              YA TENGO JINKOBOT
+            </ion-label></ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>
+</ion-content>
