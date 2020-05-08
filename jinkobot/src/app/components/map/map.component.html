@@ -1,12 +1,12 @@
 <div class="form">
   <section style="display:flex;justify-content: center;">
-      <p style="text-align: center;padding-top:1.5rem;">Where do you wanna Jinko goes?<BR /> Jinko is going to:
-          {{ navigationService.goalString }} </p>
+      <!--<p style="text-align: center;padding-top:1.5rem;">Where do you wanna Jinko goes?<BR /> Jinko is going to:
+          {{ navigationService.goalString }} </p>-->
   </section>
 
 
 <section class="map">
-  <div class="blue" (click)="start(2)" *ngIf="loading || !connected  || service_busy">
+  <!--<div class="blue" (click)="start(2)" *ngIf="loading || !connected  || service_busy">
       <p> STUDY </p>
   </div>
   <div class="orange" (click)="start(3)" *ngIf="loading || !connected  || service_busy">
@@ -20,5 +20,9 @@
   </div>
   <div class="red" (click)="start(4)" *ngIf="loading || !connected  || service_busy">
       <P>TOUR </P>
-  </div> 
+  </div>-->
+
+  <img id="imagen" src="../../assets/img/MapaApp.png" (click)="getCoordinates($event)"/>
+
+
  </section>  
