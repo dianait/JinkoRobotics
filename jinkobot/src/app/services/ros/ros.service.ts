@@ -52,7 +52,7 @@ export class RosConnectionService {
     @date 23/04/2020
     ****************************************************************************************/
     callService(nameSerivce, typeMessage, data: {}, callback = (response: any) =>{console.log(response)}) {
-        
+        console.log("Calling service: "+nameSerivce)
         let service = new ROSLIB.Service({
             ros: this.ros,
             name: nameSerivce,
@@ -63,7 +63,9 @@ export class RosConnectionService {
 
         service.callService(request, (result) => {
             this.service_busy = false
-            callback(result)
+            if (result != ""){
+                callback(result)
+            }
         }, (error) => {
             this.service_busy = false
             console.error(error)
