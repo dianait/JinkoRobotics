@@ -35,6 +35,22 @@ public startSM(goal){
     this.rosService.callService(nameService, typeMessage, data);
 }
 
+public sendCoordinates(x, y){
+    console.log("Sending Coordinates to ROS "+x+" "+y)
+    this.service_busy = true;
+    this.service_response = '';
+
+    let nameService = '/jinko_navigation';
+    let typeMessage = 'jinko_service_msg/jinko_service_msg';
+    let data = {
+        destino: 0,
+        coordenadaX: x,
+        coordenadaY: y
+    };
+
+    this.rosService.callService(nameService, typeMessage, data);
+}
+
 setGoalString(goal){
     switch(goal){
         case 0: 
