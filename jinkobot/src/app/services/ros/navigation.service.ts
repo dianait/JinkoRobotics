@@ -49,6 +49,15 @@ public sendCoordinates(x, y){
     };
 
     this.rosService.callService(nameService, typeMessage, data);
+
+}
+
+public getJinkobotPosition(callback){
+    let topicName: string = '/amcl_pose';
+    let typeMessage: string = 'geometry_msgs/PoseWithCovarianceStamped';
+    this.rosService.subscribeToTopic(topicName, typeMessage, function(X, Y, Z){
+        callback(X,Y,Z);
+    });
 }
 
 setGoalString(goal){
