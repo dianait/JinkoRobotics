@@ -5,7 +5,7 @@
   </section>
 
 
-<section class="map">
+<section class="map" id="map" style="position: relative">
   <!--<div class="blue" (click)="start(2)" *ngIf="loading || !connected  || service_busy">
       <p> STUDY </p>
   </div>
@@ -22,7 +22,7 @@
       <P>TOUR </P>
   </div>-->
 
-  <img id="imagen" src="../../assets/img/MapaApp.png" (click)="getCoordinates($event)"/>
+  <img id="imagen" stlye="position: absolute" (load)="posicionarJinkobot()" src="../../assets/img/MapaApp.png" (click)="getCoordinates($event)"/>
 
 
  </section>  
