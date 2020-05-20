@@ -11,8 +11,7 @@ export class MapComponent implements OnInit {
   public streaming;
   goalString: any;
   public sizeFactor = 1;
-  // Factor por los que se multiplicara el tamaño de jinkobot
-  // private sizeFactor = 2
+
 
   constructor(private navigationService: NavigationService) { }
 
@@ -35,7 +34,6 @@ export class MapComponent implements OnInit {
         const newHeight = ((imagen.offsetHeight * 18) / 800) * this.sizeFactor;
         jinkobot.style.width = String(newWidth) + 'px';
         jinkobot.style.height = String(newHeight) + 'px';
-        // jinkobot.style.visibility = "hidden"
 
         // Posicionar
         this.navigationService.getJinkobotPosition((X: number, Y: number, Z: number) => {
@@ -99,14 +97,37 @@ export class MapComponent implements OnInit {
             const mapSection = document.getElementById('map');
             if (mapSection.childNodes.length > 1) { mapSection.removeChild(mapSection.lastChild); }
             mapSection.appendChild(jinkobot);
-            console.log('hola ' + String(x) + ' ' + String(y) + ' ' + String(Z));
+            // console.log('hola ' + String(x) + ' ' + String(y) + ' ' + String(Z));
+
+             // Si esta tocando la estrella, borrarla
+            try {
+                const estrella = document.getElementById('estrella');
+                const ancho = jinkobot.offsetWidth;
+                const alto = jinkobot.offsetHeight;
+                const mitadEstrella = estrella.offsetWidth/2;
+                const izquierda = jinkobot.getBoundingClientRect().left;
+                const derecha = jinkobot.getBoundingClientRect().left+ancho;
+                const arriba = jinkobot.getBoundingClientRect().top;
+                const abajo = jinkobot.getBoundingClientRect().top+alto;
+                const centroEstrellaX = estrella.getBoundingClientRect().left + estrella.offsetWidth/2;
+                const centroEstrellaY = estrella.getBoundingClientRect().top + estrella.offsetHeight/2;
+                if (centroEstrellaX > izquierda && centroEstrellaX < derecha && centroEstrellaY < abajo && centroEstrellaY > arriba){
+                    const mapa = document.getElementById('map');
+                    mapa.removeChild(estrella);
+
+                }
+            } catch {}
+
+            if (jinkobot.id == null) { // En caso de que no se haya creado el jinkobot
+                this.posicionarJinkobot();
+            }
         });
     }
 
     public getCoordinates(ev) {
 
         console.log('getCoordinates()');
-        const imagen = document.getElementById('imagen');
+        let imagen = document.getElementById('imagen');
         // Restar a la posicion de la imagen la distancia a los bordes de la pantalla
         const imgLeft = ev.clientX - imagen.getBoundingClientRect().left;
         const imgTop = ev.clientY - imagen.getBoundingClientRect().top;
@@ -129,6 +150,27 @@ export class MapComponent implements OnInit {
         const y = unidadesY - 4.8;
         // console.log('x: '+ x + ' y: ' + y)
         this.navigationService.sendCoordinates(x, y);
+
+          // Crear marcador
+        const mapSection = document.getElementById('map');
+        try {// Si ya existia uno
+              const mark = document.getElementById('estrella');
+              mapSection.removeChild(mark);
+          } catch {}
+
+        const marker = document.createElement('img')
+        marker.id = 'estrella';
+        marker.src = '../../assets/img/estrella.png';
+        marker.style.position = 'absolute'
+        imagen = document.getElementById('imagen');
+        const sizeFactor = 1
+        const newWidth = ((imagen.offsetWidth * 50 ) / 800 ) * sizeFactor;
+        const newHeight = ((imagen.offsetHeight * 50) / 800) * sizeFactor;
+        marker.style.width = String(newWidth) + 'px';
+        marker.style.height = String(newHeight) + 'px';
+        marker.style.marginLeft = String(imgLeft) + 'px';
+        marker.style.marginTop = String(imgTop) + 'px';
+        mapSection.appendChild(marker);
     }
 
 }
