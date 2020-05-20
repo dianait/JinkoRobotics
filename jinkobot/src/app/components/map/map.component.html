@@ -24,5 +24,11 @@
 
   <img id="imagen" stlye="position: absolute" (load)="posicionarJinkobot()" src="../../assets/img/MapaApp.png" (click)="getCoordinates($event)"/>
 
-
  </section>  
+
+ <ion-item>
+  <ion-range #jinkoSize min="1" max="4" step="1" snaps="true" [(ngModel)]="sizeFactor" (ionChange)="posicionarJinkobot()">
+    <ion-icon slot="start" size="small" src="../../assets/img/jinkobot.svg"></ion-icon>
+    <ion-icon slot="end" size="large" src="../../assets/img/jinkobot.svg"></ion-icon>
+  </ion-range>
+</ion-item>

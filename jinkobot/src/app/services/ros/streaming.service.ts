@@ -5,31 +5,32 @@
 @date 06/04/2020
 @license GPLv3
 *********************************************************************/
-import { Injectable } from "@angular/core";
-import { Platform } from "@ionic/angular";
+import { Injectable } from '@angular/core';
+import { Platform } from '@ionic/angular';
 // import { MJPEGCANVAS } from 'node_modules/roslib/build/roslib.js';
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
+declare let MJPEGCANVAS;
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class StreamingService {
   streaming: boolean = false;
-  MJPEGCANVAS: any;
 
   constructor(private plt: Platform) {}
 
   public setCamera() {
     // Si es dispositivo movil bloquear en posición landscape
-    if (this.plt.testUserAgent("desktop"))
-      screen.orientation.lock("landscape-primary");
+    if (this.plt.testUserAgent('desktop')) {
+      screen.orientation.lock('landscape-primary');
+    }
 
-    new this.MJPEGCANVAS.Viewer({
-      divID: "divCamera",
-      host: "localhost",
+    new MJPEGCANVAS.Viewer({
+      divID: 'divCamera',
+      host: 'localhost',
       width: window.innerWidth,
       height: window.innerHeight,
-      topic: "/turtlebot3/camera/image_raw",
+      topic: '/turtlebot3/camera/image_raw',
       ssl: false,
     }) || {};
   }
