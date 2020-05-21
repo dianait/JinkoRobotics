@@ -1,13 +1,13 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { IRobot } from 'src/app/models/IRobot';
-import { Observable } from 'rxjs';
-import { EditRobotPage } from 'src/app/pages/edit-robot/edit-robot.page';
-import { ModalController } from '@ionic/angular';
-import { StorageService } from 'src/app/services/storage.service';
+import { Component, OnInit, Input, OnChanges } from "@angular/core";
+import { IRobot } from "src/app/models/IRobot";
+import { Observable } from "rxjs";
+import { EditRobotPage } from "src/app/pages/edit-robot/edit-robot.page";
+import { ModalController } from "@ionic/angular";
+import { StorageService } from "src/app/services/storage.service";
 
 @Component({
-  selector: 'app-robot-list',
-  templateUrl: './robot-list.component.html',
+  selector: "app-robot-list",
+  templateUrl: "./robot-list.component.html",
 })
 export class RobotListComponent implements OnInit, OnChanges {
   @Input() robot$: Observable<IRobot[]>;
@@ -20,11 +20,6 @@ export class RobotListComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-
-    this.robots[0] = {id: 'dfadf', alias: 'Jinko'};
-    this.robots[1] = {id: 'dfadf', alias: 'Maily'};
-    this.robots[2] = {id: 'dfadf', alias: 'Chuspi'};
-
     this.robot$.subscribe((data: IRobot[]) => {
       this.robots = data;
     });
@@ -47,6 +42,4 @@ export class RobotListComponent implements OnInit, OnChanges {
   async closeModal(data: boolean) {
     data && (this.robot$ = this.storage.getRobots());
   }
-
-
 }

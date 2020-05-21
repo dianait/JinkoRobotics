@@ -1,16 +1,8 @@
-<ion-card class="card">
-  <ion-item >
-    <ion-icon slot="start" src="../../assets/icon/robot.svg"></ion-icon>
-    <ion-label (click)="robotList.presentModal(robot)">{{ robot.alias }}</ion-label>
-    <ion-badge *ngIf="connected" color="success">CONNECTED</ion-badge>
-    <ion-icon slot="end" name="battery-full"></ion-icon>
-  </ion-item>
-
+<ion-card>
   <ion-item>
-    <ion-icon slot="start" name="speedometer"></ion-icon> 
-      <ion-badge color="secondary" id="low" class="speedSelectors" (click)="changeSpeed('low')">LOW</ion-badge>
-      <ion-badge color="warning" id="medium" class="speedSelectors" (click)="changeSpeed('medium')">MEDIUM</ion-badge>
-      <ion-badge color="danger" id="fast"  class="speedSelectors" (click)="changeSpeed('fast')">FAST</ion-badge>
+    <ion-icon slot="start" src="../../assets/icon/robot.svg"></ion-icon>
+    <ion-label>{{ robot.alias }}</ion-label>
+    <ion-button fill="outline" slot="end">connect</ion-button>
   </ion-item>
 
   <ion-card-content> <strong>ID:</strong> {{ robot.id }}</ion-card-content>
