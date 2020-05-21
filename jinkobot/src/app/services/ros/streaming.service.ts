@@ -5,12 +5,13 @@
 @date 06/04/2020
 @license GPLv3
 *********************************************************************/
+// import { MJPEGCANVAS } from 'node_modules/roslib/build/roslib.js';
 import { RosConnectionService } from 'src/app/services/ros/ros.service';
 import { Injectable } from "@angular/core";
 import { Platform } from "@ionic/angular";
 declare let MJPEGCANVAS;
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 
 export class StreamingService {

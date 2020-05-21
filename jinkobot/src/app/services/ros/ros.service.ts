@@ -66,7 +66,7 @@ export class RosConnectionService {
     @date 23/04/2020
     ****************************************************************************************/
     callService(nameSerivce, typeMessage, data: {}, callback = (response: any) =>{console.log(response)}) {
-        
+        console.log("Calling service: "+nameSerivce)
         let service = new ROSLIB.Service({
             ros: this.ros,
             name: nameSerivce,
@@ -77,7 +77,9 @@ export class RosConnectionService {
 
         service.callService(request, (result) => {
             this.service_busy = false
-            callback(result)
+            if (result != ""){
+                callback(result)
+            }
         }, (error) => {
             this.service_busy = false
             console.error(error)
@@ -106,6 +108,32 @@ export class RosConnectionService {
        
     disconnect() {
         if (this.connected) this.ros.close();
+    }
+
+    /***************************************************************************************
+    suscribeToTopic()
+    @description Función genérica para se suscribe a un topic
+    @params topicName: nombre del topic en que se quiere publicar.
+    @params typeMessage: typo de mensaje que requiere el Topic.
+    @date 10/05/2020
+    ****************************************************************************************/
+    public subscribeToTopic(topicName: string, typeMessage: string, callback) {
+
+         let topic = new ROSLIB.Topic({
+            ros: this.ros,
+            name: topicName,
+            messageType: typeMessage
+        });
+        /*if(!this.connected){
+            this.ros.on('connection', () => {
+            this.connected = true
+            this.loading = false
+            })
+        }*/
+        topic.subscribe(function(mensajeRecibido) {
+            //topic.unsubscribe();
+            callback(mensajeRecibido.pose.pose.position.x,mensajeRecibido.pose.pose.position.y,mensajeRecibido.pose.pose.orientation.z);
+        });
     }
 
 }

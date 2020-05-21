@@ -1,7 +1,0 @@
-{
-  "name": "jinkobot",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
-}

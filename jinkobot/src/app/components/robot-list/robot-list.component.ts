@@ -49,13 +49,4 @@ export class RobotListComponent implements OnInit, OnChanges {
   }
 
 
-  public connect(card) {
-
-    // let card = document.getElementById('card');
-    let cards = document.getElementsByClassName('card');
-    console.log(card);
-    card.style.opacity = '1';
-    card.style.border = '1px solid #107a8b';
-
-  }
 }

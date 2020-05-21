@@ -35,6 +35,31 @@ public startSM(goal){
     this.rosService.callService(nameService, typeMessage, data);
 }
 
+public sendCoordinates(x, y){
+    console.log("Sending Coordinates to ROS "+x+" "+y)
+    this.service_busy = true;
+    this.service_response = '';
+
+    let nameService = '/jinko_navigation';
+    let typeMessage = 'jinko_service_msg/jinko_service_msg';
+    let data = {
+        destino: 0,
+        coordenadaX: x,
+        coordenadaY: y
+    };
+
+    this.rosService.callService(nameService, typeMessage, data);
+
+}
+
+public getJinkobotPosition(callback){
+    let topicName: string = '/amcl_pose';
+    let typeMessage: string = 'geometry_msgs/PoseWithCovarianceStamped';
+    this.rosService.subscribeToTopic(topicName, typeMessage, function(X, Y, Z){
+        callback(X,Y,Z);
+    });
+}
+
 setGoalString(goal){
     switch(goal){
         case 0: 

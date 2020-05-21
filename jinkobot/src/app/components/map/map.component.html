@@ -1,12 +1,12 @@
 <div class="form">
   <section style="display:flex;justify-content: center;">
-      <p style="text-align: center;padding-top:1.5rem;">Where do you wanna Jinko goes?<BR /> Jinko is going to:
-          {{ navigationService.goalString }} </p>
+      <!--<p style="text-align: center;padding-top:1.5rem;">Where do you wanna Jinko goes?<BR /> Jinko is going to:
+          {{ navigationService.goalString }} </p>-->
   </section>
 
 
-<section class="map">
-  <div class="blue" (click)="start(2)" *ngIf="loading || !connected  || service_busy">
+<section class="map" id="map" style="position: relative">
+  <!--<div class="blue" (click)="start(2)" *ngIf="loading || !connected  || service_busy">
       <p> STUDY </p>
   </div>
   <div class="orange" (click)="start(3)" *ngIf="loading || !connected  || service_busy">
@@ -20,5 +20,15 @@
   </div>
   <div class="red" (click)="start(4)" *ngIf="loading || !connected  || service_busy">
       <P>TOUR </P>
-  </div> 
+  </div>-->
+
+  <img id="imagen" stlye="position: absolute" (load)="posicionarJinkobot()" src="../../assets/img/MapaApp.png" (click)="getCoordinates($event)"/>
+
  </section>  
+
+ <ion-item>
+  <ion-range #jinkoSize min="1" max="4" step="1" snaps="true" [(ngModel)]="sizeFactor" (ionChange)="posicionarJinkobot()">
+    <ion-icon slot="start" size="small" src="../../assets/img/jinkobot.svg"></ion-icon>
+    <ion-icon slot="end" size="large" src="../../assets/img/jinkobot.svg"></ion-icon>
+  </ion-range>
+</ion-item>
