@@ -1,0 +1,119 @@
+
+/*********************************************************************
+@name games.service.ts
+@description Servicio con los juegos y ejercicios
+@author Diana Hernández Soler
+@date 22/05/2020
+@license GPLv3
+*********************************************************************/
+import { Injectable } from '@angular/core';
+
+@Injectable({
+    providedIn: 'root'
+})
+export class GamesService {
+    private operators = ['+', '-', '*'];
+    private operation = {id: 0, type: 'math', src: '', question: '2 + 2', answer: '4'};
+    private exercises = [
+        {   id: 1,
+            type: 'emotions',
+            src: '../../assets/img/exercises/1.png',
+            question: 'El tren no funciona, está roto ¿Cómo está el niño?',
+            answer: 'triste'
+        },
+        {
+            id: 2,
+            type: 'emotions',
+            src: '../../assets/img/exercises/2.png',
+            question: 'El niño juega con la bici ¿Cómo está el niño?',
+            answer: 'alegre'
+        },
+        {
+            id: 3,
+            type: 'inferences',
+            src: '',
+            question: 'El niño no se ha comido el bacadillo en el recreo ¿El niño está en el colegio o en su casa?',
+            answer: 'coleguio'
+        },
+        {
+            id: 4,
+            type: 'inferences',
+            src: '',
+            question: 'Juan lleva todo el día conduciendo y ha parado a echar gasolina ¿Juán va en coche o en bicicleta?',
+            answer: 'coche'
+        },
+        {
+            id: 5,
+            type: 'emotions',
+            src: '',
+            question: 'El niño quiere subir al tobogán y la niña no le deja. ¿Cómo está el niño?',
+            answer: 'enfadado'
+        },
+        {
+            id: 6,
+            type: 'inferences',
+            src: '',
+            question: 'Compramos palomitas y nos pusimos cómodos a ver la película. ¿Dónde estamos?',
+            answer: 'cine'
+        },
+        {
+            id: 7,
+            type: 'inferences',
+            src: '',
+            // tslint:disable-next-line: max-line-length
+            question: 'Carlos se tiro desde el trampolín y sus amigos lo miraron desde la zona de comidas.¿Carlos esta en la piscina o en el teatro?',
+            answer: 'piscina'
+        },
+    ];
+
+    constructor() {}
+
+    /***************************************************************************************
+    getMathEx()
+    @author Diana Hernández
+    @description Función para crear una operación matemática aleatoria
+    @date 23/04/2020
+    ****************************************************************************************/
+    public getMathEx() {
+        const op = this.operators[this.getRandomInt(0, (this.operators.length - 1))];
+        const x = this.getRandomInt(1, 9);
+        const y = this.getRandomInt(1, 9);
+        let answer, question;
+        switch (op) {
+            case '+':
+                answer = x + y;
+                question = x + ' + ' + y;
+                break;
+            case '-':
+                answer = x - y;
+                question = x + ' - ' + y;
+                break;
+            case '*':
+                answer = x * y;
+                question = x + ' x ' + y;
+        }
+        this.operation.question = question;
+        this.operation.answer = answer;
+        console.log('Operación aleatoria', this.operation.question + ' = ' + this.operation.answer);
+        return this.operation;
+    }
+
+    /***************************************************************************************
+    getExercise()
+    @author Diana Hernández
+    @description Función que devuelve un ejercico aleatorio
+    @date 23/04/2020
+    ****************************************************************************************/
+    public getExercise() {
+        const randomIndex = this.getRandomInt(0, this.exercises.length);
+        console.log('Ejercicio aleatorio', this.exercises[randomIndex]);
+        return this.exercises[randomIndex];
+    }
+
+    // Retorna un entero aleatorio entre min (incluido) y max (excluido)
+    // ¡Usando Math.round() te dará una distribución no-uniforme!
+    private getRandomInt(min, max): number {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+}

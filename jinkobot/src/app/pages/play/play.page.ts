@@ -1,20 +1,21 @@
+
 import { TabsComponent } from './../../components/tabs/tabs.component';
 import { RosConnectionService } from 'src/app/services/ros/ros.service';
 import { StreamingService } from 'src/app/services/ros/streaming.service';
-import { Component, Input } from "@angular/core";
-import { Platform } from "@ionic/angular";
+import { Component, Input } from '@angular/core';
+import { Platform } from '@ionic/angular';
 
 @Component({
-  selector: "app-tab2",
-  templateUrl: "play.page.html",
+  selector: 'app-tab2',
+  templateUrl: 'play.page.html',
 })
 export class PlayPage {
   @Input()
   public streaming: boolean;
 
-  view: string = "map";
+  view: string = 'map';
   camera: boolean = true;
-  
+
   constructor(
     private rosService: RosConnectionService, 
     private streamingService: StreamingService, 
@@ -43,7 +44,7 @@ export class PlayPage {
   closeStreaming() {
 
     // Si es movil desbloquemos el giro de pantalla
-    if (!this.plt.testUserAgent("desktop")) screen.orientation.unlock();
+    if (!this.plt.testUserAgent('desktop')) screen.orientation.unlock();
     // Ponemos el streaming a false
     this.streaming = this.streamingService.setStreaming(false);
     // Mostramos el header y las tabs

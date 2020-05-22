@@ -1,0 +1,12 @@
+<ion-item>
+    <ion-button color="primary" (click)="showEx('maths')">MATHS</ion-button>
+    <ion-button color="tertiary" (click)="showEx()">RANDOM</ion-button>
+</ion-item>
+<ion-content>
+    <ion-card *ngIf="exercise != {}" >
+    <img [src]="src" />
+    <ion-card-header>
+        <ion-card-subtitle> {{ type }} </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>{{ question }}   </ion-card-content>
+<ion-card>
