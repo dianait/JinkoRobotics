@@ -102,12 +102,25 @@ export class GamesService {
     getExercise()
     @author Diana Hernández
     @description Función que devuelve un ejercico aleatorio
+    @params type: tipo de ejercicio ['inferences', 'emotions']
     @date 23/04/2020
     ****************************************************************************************/
-    public getExercise() {
-        const randomIndex = this.getRandomInt(0, this.exercises.length);
-        console.log('Ejercicio aleatorio', this.exercises[randomIndex]);
-        return this.exercises[randomIndex];
+    public getExercise(type: string) {
+           let array =  this.exercises;
+           let max = array.length;
+
+           // Si se especifica el tipo se filtra por él
+           if (type !== 'random') {
+
+            array = this.exercises.filter(ex => ex.type === type);
+            max = array.length;
+    }
+
+
+           const randomIndex = this.getRandomInt(0, max);
+           console.log('Ejercicio aleatorio', array[randomIndex]);
+           return array[randomIndex];
+
     }
 
     // Retorna un entero aleatorio entre min (incluido) y max (excluido)

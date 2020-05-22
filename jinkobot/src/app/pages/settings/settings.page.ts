@@ -31,7 +31,7 @@ export class SettingsPage {
         ex = this.games.getMathEx();
         break;
       default:
-        ex = this.games.getExercise();
+        ex = this.games.getExercise(type);
 
     }
     this.question = ex.question || '';
