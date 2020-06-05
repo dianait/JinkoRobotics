@@ -7,9 +7,9 @@ import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab2',
-  templateUrl: 'play.page.html',
+  templateUrl: 'navigate.page.html',
 })
-export class PlayPage {
+export class NavigatePage {
   @Input()
   public streaming: boolean;
 
@@ -35,7 +35,7 @@ export class PlayPage {
       this.streaming = this.streamingService.setStreaming(true);
       // Ocultamos el header y las tabs para pantalla completa
       this.tabs.hide();
-      // Cambiamos a la pestaña Mapa para que no se quede activa la pestaña cámara al volver a la página Play
+      // Cambiamos a la pestaña Mapa para que no se quede activa la pestaña cámara al volver a la página Navigate
       this.view = 'map';
       
     }
