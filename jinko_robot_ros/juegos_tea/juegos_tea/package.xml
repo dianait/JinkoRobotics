@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>juegos_tea</name>
+  <version>0.0.0</version>
+  <description>ROS packages for the juegos_tea</description>
+  <maintainer email="diana@jinkorobotics.es">diana</maintainer>
+  <url type="repository">https://github.com/DianaIT/JinkoRobotics/tree/develop</url>
+  <url type="website">https://www.notion.so/dianait/T20-Implementar-Juego-TEA-e1024fe8688a470a8cdee51ed0df5711 </url>
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>jinko_games</exec_depend>
+  <exec_depend>jinko_games_message</exec_depend>
+<export><metapackage/></export>
+</package>

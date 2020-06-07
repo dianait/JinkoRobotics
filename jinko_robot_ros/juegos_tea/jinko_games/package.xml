@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>jinko_games</name>
+  <version>0.0.0</version>
+  <description>The jinko_games package</description>
+  <maintainer email="diana@todo.todo">diana</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>rospy</build_depend>
+  <build_depend>jinko_games_message</build_depend>
+
+  <build_export_depend>rospy</build_export_depend>
+  <build_export_depend>jinko_games_message</build_export_depend>
+
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>jinko_games_message</exec_depend>
+
+</package>
