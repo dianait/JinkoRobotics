@@ -1,0 +1,52 @@
+<ion-toolbar>
+    <ion-segment
+        [(ngModel)]="view"
+        (ionChange)="show()">
+        <ion-segment-button
+            value="maths"
+        (click)="showEx('maths')">
+            <ion-icon
+                name="calculator-outline">
+            </ion-icon>
+        </ion-segment-button>
+        <ion-segment-button
+            value="inferences"
+        (click)="showEx('inferences')">
+                <ion-icon
+                    name="trail-sign-outline">
+                </ion-icon>
+        </ion-segment-button>
+        <ion-segment-button
+            value="emotions"
+        (click)="showEx('emotions')">
+                <ion-icon
+                    name="happy-outline">
+                </ion-icon>
+        </ion-segment-button>
+    </ion-segment>
+</ion-toolbar>
+
+<ion-content>
+    <div class="principal">
+        <ion-card *ngIf="exercise != {}" class="cuadro-texto">
+        <img [src]="src" />
+        <ion-card-content id="pregunta">{{ question }}   </ion-card-content>
+        </ion-card>
+
+        <games-timer class="ui"></games-timer>
+
+        <div class="camara"></div>
+    </div>
+
+<ion-fab
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed">
+    <ion-fab-button
+            [color]="fab_color" (click)="startTimer()">
+        <ion-icon
+            color="light"
+            [name]="fab_icon">
+        </ion-icon>
+    </ion-fab-button>
+</ion-fab>
