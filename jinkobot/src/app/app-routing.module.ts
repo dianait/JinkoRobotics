@@ -1,16 +1,16 @@
-import { NgModule } from "@angular/core";
-import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: "", redirectTo: "play", pathMatch: "full" },
-  { path: "play", loadChildren: "./pages/play/play.module#PlayPageModule" },
+  { path: '', redirectTo: 'navigate', pathMatch: 'full' },
+  { path: 'navigate', loadChildren: './pages/navigate/navigate.module#NavigatePageModule' },
   {
-    path: "connect",
-    loadChildren: "./pages/connect/connect.module#ConnectPageModule",
+    path: 'connect',
+    loadChildren: './pages/connect/connect.module#ConnectPageModule',
   },
   {
-    path: "settings",
-    loadChildren: "./pages/settings/settings.module#SettingsPageModule",
+    path: 'games',
+    loadChildren: './pages/games/games.module#GamesPageModule',
   },
 ];
 @NgModule({

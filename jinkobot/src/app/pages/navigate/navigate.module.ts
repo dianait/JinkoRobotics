@@ -4,7 +4,7 @@ import { RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import { PlayPage } from "./play.page";
+import { NavigatePage } from "./navigate.page";
 import { MapComponent } from 'src/app/components/map/map.component';
 import { JoystickComponent } from 'src/app/components/joystick/joystick.component';
 
@@ -13,8 +13,8 @@ import { JoystickComponent } from 'src/app/components/joystick/joystick.componen
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([{ path: "", component: PlayPage }]),
+    RouterModule.forChild([{ path: "", component: NavigatePage }]),
   ],
-  declarations: [PlayPage, MapComponent, JoystickComponent, StreamingComponent]
+  declarations: [NavigatePage, MapComponent, JoystickComponent, StreamingComponent]
 })
-export class PlayPageModule {}
+export class NavigatePageModule {}

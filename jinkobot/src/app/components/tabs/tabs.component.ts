@@ -1,11 +1,11 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-  selector: "app-tabs",
-  templateUrl: "tabs.component.html",
+  selector: 'app-tabs',
+  templateUrl: 'tabs.component.html',
 })
 export class TabsComponent {
-  _show: boolean = true;
+  _show = true;
 
   constructor() {}
 
