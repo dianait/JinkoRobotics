@@ -15,7 +15,7 @@ export class NavigationService {
     goalString: string;
     service_busy: boolean;
     service_response: any;
-    speed: number = 0.5;
+    speed = 0.5;
 
     constructor(private rosService: RosConnectionService) {}
 
@@ -24,54 +24,54 @@ public startSM(goal){
     this.service_busy = true;
     this.service_response = '';
 
-    let nameService = '/jinko_navigation';
-    let typeMessage = 'jinko_service_msg/jinko_service_msg';
-    let data = {
+    const nameService = '/jinko_navigation';
+    const typeMessage = 'jinko_service_msg/jinko_service_msg';
+    const data = {
         destino: parseInt(goal), 
         coordenadaX: 0.0, 
         coordenadaY: 0.0
     };
 
-    this.rosService.callService(nameService, typeMessage, data);
+    this.rosService.callService(nameService, typeMessage, data, (response) => { console.log(response); });
 }
 
 public sendCoordinates(x, y){
-    console.log("Sending Coordinates to ROS "+x+" "+y)
+    console.log('Sending Coordinates to ROS ' + x + ' ' + y);
     this.service_busy = true;
     this.service_response = '';
 
-    let nameService = '/jinko_navigation';
-    let typeMessage = 'jinko_service_msg/jinko_service_msg';
-    let data = {
+    const nameService = '/jinko_navigation';
+    const typeMessage = 'jinko_service_msg/jinko_service_msg';
+    const data = {
         destino: 0,
         coordenadaX: x,
         coordenadaY: y
     };
 
-    this.rosService.callService(nameService, typeMessage, data);
+    this.rosService.callService(nameService, typeMessage, data, (response) => { console.log(response); });
 
 }
 
 public getJinkobotPosition(callback){
-    let topicName: string = '/amcl_pose';
-    let typeMessage: string = 'geometry_msgs/PoseWithCovarianceStamped';
-    this.rosService.subscribeToTopic(topicName, typeMessage, function(X, Y, Z){
-        callback(X,Y,Z);
+    const topicName = '/amcl_pose';
+    const typeMessage = 'geometry_msgs/PoseWithCovarianceStamped';
+    this.rosService.subscribeToTopic(topicName, typeMessage, (X, Y, Z) =>  {
+        callback(X, Y, Z);
     });
 }
 
 setGoalString(goal){
     switch(goal){
-        case 0: 
+        case 0:
         break;
         case 1: this.goalString = 'DOOR';
-        break;
+                break;
         case 2: this.goalString = 'STUDY';
-        break;
+                break;
         case 3: this.goalString = 'GAMES';
-        break;
+                break;
         case 4: this.goalString = 'TOUR';
-        break;
+                break;
         default:
             this.goalString = 'no destination yet';
     }
@@ -80,9 +80,9 @@ setGoalString(goal){
 
     public move(direction) {
 
-        let topicName: string = '/cmd_vel';
-        let typeMessage: string = 'geometry_msgs/Twist';
-        let message = this.setDirection(direction, this.speed);
+        const topicName = '/cmd_vel';
+        const typeMessage = 'geometry_msgs/Twist';
+        const message = this.setDirection(direction, this.speed);
         this.rosService.publishTopic(topicName, typeMessage, message);
 
     }

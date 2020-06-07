@@ -111,26 +111,3 @@ temp/
 # End of https://www.gitignore.io/api/node
 .DS_Store
 .idea
-./jinko_robot_ros/.idea 
-
-jinkobot/src/assets/js/nipplejs/
-
-jinkobot/src/app/services/ros/directions.json
-
-*.bin
-
-jinkobot/android/.gradle/4.10.1/fileChanges/
-
-*.lock
-
-*.properties
-
-*.iml
-
-jinkobot/android/app/build/.npmkeep
-
-*.java
-
-*.json
-
-jinkobot/android/app/build/intermediates/blame/res/debug/multi-v2/
