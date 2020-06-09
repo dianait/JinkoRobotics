@@ -1,8 +1,10 @@
+import { MJPEGCANVAS } from 'node_modules/roslib/build/roslib.js';
+import { StreamingService } from 'src/app/services/ros/streaming.service';
 import { Exercise } from 'src/app/models/Exercise';
 import { GamesService } from './../../services/games.service';
 import { Component, ViewChild } from '@angular/core';
 import { RosConnectionService } from 'src/app/services/ros/ros.service';
-import { stringify } from 'querystring';
+declare let MJPEGCANVAS;
 
 @Component({
   selector: 'app-tab3',
@@ -27,20 +29,12 @@ export class GamesPage {
   public corriendo_animacion = false;
   public reiniciar_pregunta = false;
   public juego_actual = '';
+
   constructor(
     private rosService: RosConnectionService,
-    private games: GamesService) {}
+    private games: GamesService, private streamingService: StreamingService) {}
 
   ngOnInit() {
-
-    /* PRUEVA DE FUNCIONAMIENTO DE gamesService.ts
-    console.log('EJERCICIO MATES');
-    this.games.getMathEx();
-    console.log('EJERCICIO INFERENCIAS');
-    this.games.getExercise('inferences');
-    console.log('EJERCICIO EMOCIONES');
-    this.games.getExercise('emotions'); */
-
     this.rosService.connect();
     this.question = '↑ Elige un juego para empezar ↑';
     this.fab_color = 'light';
@@ -49,6 +43,7 @@ export class GamesPage {
   }
 
   public showEx(type: string) {
+
       if(!this.corriendo_animacion && this.juego_actual !== type) {
         this.juego_actual = type;
         this.hay_juego_seleccionado = true;
@@ -74,6 +69,9 @@ export class GamesPage {
 
   public startTimer() {
 
+    // Streaming de la webCam
+    this.streamingService.setCamera('/camera_image', 'camera', window.innerWidth, 320);
+
     // ======================== LLamamos al servicio de ROS
     const nameService = '/jinko_games_service';
     const typeMessage = 'jinko_games_msg/jinko_games_msg';
@@ -97,17 +95,18 @@ export class GamesPage {
     } else { // Empezar el timer
         if(!this.corriendo_animacion) {
             this.animacionSemaforo();
+            this.webcam = true;
         }
     }
   }
 
   public animacionSemaforo() {
-    const imagen = <HTMLImageElement>document.getElementById('semaforo');
+    const imagen = document.getElementById('semaforo') as HTMLImageElement;
     const self = this;
     this.fab_color = 'light';
     this.hay_juego_seleccionado = true;
     this.corriendo_animacion = true;
-    imagen.style.visibility = 'visible';// Se muestra el semaforo en rojo
+    imagen.style.visibility = 'visible'; // Se muestra el semaforo en rojo
     setTimeout(() => {
         imagen.src = '../../assets/img/timer/semaforo2.png';
         setTimeout(() => {
@@ -126,7 +125,7 @@ export class GamesPage {
   }
 
   public reiniciarSemaforo() { // Cuando se cambie de juego
-    const imagen = <HTMLImageElement>document.getElementById('semaforo');
+    const imagen = document.getElementById('semaforo') as HTMLImageElement;
     imagen.src = '../../assets/img/timer/semaforo1.png';
     document.getElementById('fondo').style.visibility = 'visible';
     document.getElementById('contenedor').style.borderColor = 'red';

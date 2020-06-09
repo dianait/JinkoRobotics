@@ -1,7 +1,5 @@
 <ion-toolbar>
-    <ion-segment
-        [(ngModel)]="view"
-        (ionChange)="show()">
+    <ion-segment>
         <ion-segment-button
             value="maths"
         (click)="showEx('maths')">
@@ -35,8 +33,10 @@
 
         <games-timer class="ui"></games-timer>
 
-        <div class="camara"></div>
+        <div id="camera" style="margin:0 auto;"></div>
     </div>
+
+
 
 <ion-fab
     vertical="bottom"

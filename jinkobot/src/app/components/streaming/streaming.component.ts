@@ -17,7 +17,7 @@ export class StreamingComponent implements OnInit {
 
   ngOnInit() {
 
-    if (this.streaming) this.streamingService.setCamera();
+    if (this.streaming) { this.streamingService.setCamera('/turtlebot3/camera/image_raw', 'divCamera'); }
  
   }
 
