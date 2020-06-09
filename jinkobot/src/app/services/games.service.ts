@@ -33,7 +33,7 @@ export class GamesService {
             type: 'inferences',
             src: '../../assets/img/exercises/1.png',
             question: 'El niño no se ha comido el bacadillo en el recreo ¿El niño está en el colegio o en su casa?',
-            answer: 'coleguio'
+            answer: 'cole'
         },
         {
             id: 4,

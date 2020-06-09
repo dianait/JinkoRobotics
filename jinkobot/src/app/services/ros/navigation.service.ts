@@ -90,20 +90,20 @@ setGoalString(goal){
     private setDirection(direction, speed) {
         let coords: any;
         switch(direction) {
-            case 'U':
+            case 'N':
                 coords = this.getPositionSquema();
                 coords.linear.x = speed;
                 break;
-            case 'D':
+            case 'S':
                 coords = this.getPositionSquema();
                 coords.linear.x = -speed;
 
                 break;
-            case 'L':
+            case 'W':
                 coords = this.getPositionSquema();
                 coords.angular.z = speed;
                 break;
-            case 'R':
+            case 'E':
                 coords = this.getPositionSquema();
                 coords.angular.z = -speed;
         }
