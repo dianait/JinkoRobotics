@@ -106,6 +106,27 @@ setGoalString(goal){
             case 'E':
                 coords = this.getPositionSquema();
                 coords.angular.z = -speed;
+                break;
+            case 'NE':
+                coords = this.getPositionSquema();
+                coords.linear.x = speed;
+                coords.angular.z = -speed;
+                break;
+            case 'NW':
+                coords = this.getPositionSquema();
+                coords.linear.x = speed;
+                coords.angular.z = -speed;
+                break;
+            case 'SE':
+                coords = this.getPositionSquema();
+                coords.linear.x = -speed;
+                coords.angular.z = -speed;
+                break;
+            case 'SW':
+                coords = this.getPositionSquema();
+                coords.linear.x = -speed;
+                coords.angular.z = speed;
+                break;
         }
         return coords;
     }
