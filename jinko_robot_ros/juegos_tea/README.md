@@ -6,36 +6,24 @@
 ```bash
 # EJECUTAR JUEGOS TEA
 roscore
-roslaunch juegos_tea jinko_tea_games.launch
+roslaunch jinko_games jinko_tea_games.launch
 
 # Llamada al servicio /jinko_games_service desde consola
+# [ triste, feliz, enfado, bici, coche, cine, piscina, bici ]
 rosservice call /jinko_games_service "answer: 'triste'"
 
 # APP
 ionic serve
 roslaunch rosbridge_server rosbridge_websocket.lauch
+rosrun web_video_server web_video_server _port:=8080
+
+# dirección http del streaming
+http://localhost:8080/stream?topic=/camera_image&width:320&height=320
 ```
 
 # TEMPLATE MATCHING
 
-- Se ha utilizado el método **MT_CCORR_NORMED** porque es el que mejores resultados a dado para la detección.
-- Con un umbral sobre 0.85 funciona bastante bien
-
-```bash
-template = "triste"
-# Umbral de detección
-threshold = 0.85
-position = np.where(res >= threshold)
-
-for pt in zip(*position[::-1]):
-	frame = cv2.putText(frame, 'Jinko esta ' + template, (50, 50),
-											 cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2, cv2.LINE_AA)
-     
-```
-
-![prueba detección cara enfado](README_images/Captura_de_pantalla_de_2020-06-05_21-31-20.png)
-
-![prueba detección cara triste](README_images/Captura_de_pantalla_de_2020-06-05_21-52-34.png)
+- [Explicación del proceso](https://www.notion.so/dianait/Feature-matching-with-FLANN-7802814c2a8e4902be60b1b83500878c)
 
 # COMUNICACIÓN ROS-APP
 
@@ -63,7 +51,22 @@ rospy.Service('/jinko_games_service', jinko_games_msg, checkAnswer)
 
 
 
-- La detección de la coincidencia se hace a través de una variable que por defecto es False y que solo pasa a True si la variable position tiene valores en su interior, ya que estos valores son dónde han habido coincidencias
+- Se ha creado una clase TEAGame y un metodo check que devuelve si se ha producido coincidencia con un boleano
+
+```bash
+def checkAnswer(request):
+
+    # Patron a buscar (triste, enfadado, coche, bici... )
+    answer = request.answer
+
+    # Ceamos objeto de la clase TEAGame
+    game = TEAGame()
+
+    # Generamos el mensaje respuesta del servicio
+    response = jinko_games_messageResponse()
+    response.success = game.check(answer)
+    return response
+```
 
 
 # APLICACIÓN MOVIL
@@ -92,5 +95,18 @@ rospy.Service('/jinko_games_service', jinko_games_msg, checkAnswer)
 
 - También se iniciará el semáforo que hará de temporizador para saber cuando se deberá levantar la tarjeta
 
-![diseño semáforo temporizador](README_images/Captura_de_pantalla_de_2020-06-07_20-08-35.png)
+# WEBCAM STREAMING
+
+- Básicamente se trata de añadir un objeto CVBridge para hacer la conversión de la imagen de la webcam, que está en formato OpenCV a formato ROS para despues poder publicar mediante el método publish de rospy.Publsher
+
+```bash
+pub = rospy.Publisher('camera_image', Image, queue_size=100)
+bridge = CvBridge()
+
+# Dentro del while video.isOpened()
+image_message = bridge.cv2_to_imgmsg(frame, 'bgr8')
+pub.publish(image_message)
+```
+
+
 

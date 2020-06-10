@@ -3,8 +3,12 @@ import cv2
 import numpy as np
 import rospy
 from matplotlib import pyplot as plt
-from jinko_games_msg.srv import jinko_games_message, jinko_games_messageRequest, jinko_games_messageResponse
-
+from jinko_games_message.srv import jinko_games_message, jinko_games_messageRequest, jinko_games_messageResponse
+import sys
+import numpy as np
+from sensor_msgs.msg import Image
+from cv_bridge import CvBridge, CvBridgeError
+import time
 
 class TEAGame:
 
@@ -13,7 +17,7 @@ class TEAGame:
         self.position = ([], [])
         self.threshold = 0.7
         self.source = 0
-        self.MIN_MATCH = 30
+        self.MIN_MATCH = 16
         self.MAX_TIME = 500
         self.WAIT_BEFORE_DETECT = 40
         self.detector = cv2.ORB_create(1000)
@@ -28,17 +32,32 @@ class TEAGame:
 
     def check(self, answer):
 
+        if answer == 'feliz':
+            self.MIN_MATCH = 10
+
         video = cv2.VideoCapture(self.source)
         pattern = cv2.imread("/home/diana/catkin_ws/src/jinko_tea_games/src/img/" + answer + ".png")
         pattern = cv2.cvtColor(pattern, cv2.COLOR_BGR2GRAY)
 
+        # Publisher para el streaming de la webcam
+        pub = rospy.Publisher('camera_image', Image, queue_size=100)
+        rospy.Rate(0.5)
+        bridge = CvBridge()
+
+
         while video.isOpened() and self.count < self.MAX_TIME:
 
             rval, frame = video.read()
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+            # Pasamos la imagen de formato OpenCV a formato ROS para el streaming
+            image_message = bridge.cv2_to_imgmsg(frame, 'bgr8')
+            pub.publish(image_message)
+            
+            # Pasamos la imagen de la webcam a B/N
+            frameBN = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
             #  Detecta los puntos que deben coincidir y a partir de ahi crea los descriptores
-            kp1, desc1 = self.detector.detectAndCompute(frame, None)
+            kp1, desc1 = self.detector.detectAndCompute(frameBN, None)
             kp2, desc2 = self.detector.detectAndCompute(pattern, None)
             
             # Matching descriptor vectors with a FLANN based matcher
@@ -47,6 +66,8 @@ class TEAGame:
             #  Filtrado a partir del umbral
             good_matches = [m[0] for m in matches \
                             if len(m) == 2 and m[0].distance < m[1].distance *  self.threshold]
+
+            print('good matches:%d/%d' %(len(good_matches),len(matches)))
 
             if self.count > self.WAIT_BEFORE_DETECT:
                 
@@ -59,11 +80,14 @@ class TEAGame:
                     # Encuentra transformaciones de perspectiva entre dos planos.
                     # A partir de los keypoints que deben coincidir tiene encuenta si se gira, se inclina... la tarjeta 
                     mtrx, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
+
+                    accuracy=float(mask.sum()) / mask.size
+                    print("accuracy: %d/%d(%.2f%%)"% (mask.sum(), mask.size, accuracy))
                 
                     if mask.sum() > self.MIN_MATCH:
                         return True  
 
-
+            pub.publish(image_message)
             cv2.imshow("Webcam ", frame)
             key = cv2.waitKey(20)
             if key == 27 or key == 1048603:
@@ -98,3 +122,4 @@ if __name__ == "__main__":
         rospy.spin()
     except rospy.ROSInterruptException:
         rospy.loginfo(" Testeo JINKOBOT finalizado")
+

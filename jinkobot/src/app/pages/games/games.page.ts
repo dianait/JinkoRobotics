@@ -1,4 +1,4 @@
-import { MJPEGCANVAS } from 'node_modules/roslib/build/roslib.js';
+
 import { StreamingService } from 'src/app/services/ros/streaming.service';
 import { Exercise } from 'src/app/models/Exercise';
 import { GamesService } from './../../services/games.service';
@@ -29,6 +29,9 @@ export class GamesPage {
   public corriendo_animacion = false;
   public reiniciar_pregunta = false;
   public juego_actual = '';
+
+  public showWebcam = true;
+  private webcamLoaded = false;
 
   constructor(
     private rosService: RosConnectionService,
@@ -69,8 +72,13 @@ export class GamesPage {
 
   public startTimer() {
 
-    // Streaming de la webCam
-    this.streamingService.setCamera('/camera_image', 'camera', window.innerWidth, 320);
+    if (this.fab_icon === 'play') {
+          // Streaming de la webCam
+    if (!this.webcamLoaded) {
+      this.showWebcam = true;
+      this.streamingService.setCamera('/camera_image', 'camera', window.innerWidth, 320);
+      this.webcamLoaded = true;
+    }
 
     // ======================== LLamamos al servicio de ROS
     const nameService = '/jinko_games_service';
@@ -87,6 +95,8 @@ export class GamesPage {
     this.rosService.callService(nameService, typeMessage, data, callback);
     // ======================== LLamamos al servicio de ROS
 
+    }
+
 
     if(!this.hay_juego_seleccionado) {
         this.question = '↑ ELIGE UN JUEGO PARA EMPEZAR ↑';
@@ -95,7 +105,6 @@ export class GamesPage {
     } else { // Empezar el timer
         if(!this.corriendo_animacion) {
             this.animacionSemaforo();
-            this.webcam = true;
         }
     }
   }

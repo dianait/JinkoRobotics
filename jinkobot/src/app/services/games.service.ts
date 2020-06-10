@@ -26,7 +26,7 @@ export class GamesService {
             type: 'emotions',
             src: '../../assets/img/exercises/2.png',
             question: 'El niño juega con la bici ¿Cómo está el niño?',
-            answer: 'alegre'
+            answer: 'feliz'
         },
         {
             id: 3,
