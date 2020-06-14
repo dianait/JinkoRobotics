@@ -31,3 +31,21 @@
     width: 100%;
     border-radius: 1% 1% 0 0 ; 
 }
+
+.feedback {
+    font-size: 3rem;
+    color: green;
+    text-align: center;
+    font-weight: bold;
+}
+
+.response {
+    text-align: center;
+    font-size: 1.5rem;
+
+}
+.incorrect {
+
+    color: red !important;
+
+}

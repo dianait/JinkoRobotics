@@ -31,35 +31,35 @@ export class GamesService {
         {
             id: 3,
             type: 'inferences',
-            src: '../../assets/img/exercises/1.png',
+            src: '../../assets/img/exercises/3.jpegs',
             question: 'El niño no se ha comido el bacadillo en el recreo ¿El niño está en el colegio o en su casa?',
             answer: 'cole'
         },
         {
             id: 4,
             type: 'inferences',
-            src: '../../assets/img/exercises/1.png',
+            src: '../../assets/img/exercises/4.jpg',
             question: 'Juan lleva todo el día conduciendo y ha parado a echar gasolina ¿Juán va en coche o en bicicleta?',
             answer: 'coche'
         },
         {
             id: 5,
             type: 'emotions',
-            src: '../../assets/img/exercises/1.png',
+            src: '../../assets/img/exercises/5.png',
             question: 'El niño quiere subir al tobogán y la niña no le deja. ¿Cómo está el niño?',
             answer: 'enfado'
         },
         {
             id: 6,
             type: 'inferences',
-            src: '../../assets/img/exercises/1.png',
+            src: '../../assets/img/exercises/3.png',
             question: 'Compramos palomitas y nos pusimos cómodos a ver la película. ¿Dónde estamos?',
             answer: 'cine'
         },
         {
             id: 7,
             type: 'inferences',
-            src: '../../assets/img/exercises/1.png',
+            src: '../../assets/img/exercises/3.png',
             // tslint:disable-next-line: max-line-length
             question: 'Carlos se tiro desde el trampolín y sus amigos lo miraron desde la zona de comidas.¿Carlos esta en la piscina o en el teatro?',
             answer: 'piscina'
@@ -76,8 +76,8 @@ export class GamesService {
     ****************************************************************************************/
     public getMathEx() {
         const op = this.operators[this.getRandomInt(0, (this.operators.length - 1))];
-        let x = this.getRandomInt(1, 9);
-        let y = this.getRandomInt(1, 9);
+        let x = this.getRandomInt(1, 5);
+        let y = this.getRandomInt(1, 5);
         let answer, question;
         switch (op) {
             case '+':

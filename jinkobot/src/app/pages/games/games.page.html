@@ -28,11 +28,13 @@
     <div class="principal">
         <ion-card *ngIf="exercise != {}" class="cuadro-texto">
         <img [src]="src" class="imgQuestion" />
-        <ion-card-content id="pregunta">{{ question }}   </ion-card-content>
+      
+        <ion-card-content class="response" id="pregunta">{{ question }}   </ion-card-content>
+        <!-- <ion-card-subtitle class="response"> {{ response }}</ion-card-subtitle> -->
+        <ion-card-title class="feedback" >{{ feedback }}</ion-card-title>
         </ion-card>
 
         <games-timer class="ui"></games-timer>
-
         <div id="camera" *ngIf="showWebcam" style="margin:0 auto;"></div>
     </div>
 
