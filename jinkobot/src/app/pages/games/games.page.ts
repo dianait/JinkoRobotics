@@ -50,6 +50,9 @@ export class GamesPage implements OnInit {
 
   public showEx(type: string) {
 
+      this.response = '';
+      this.feedback = '';
+
     //  && this.juego_actual !== type
       if (!this.corriendo_animacion) {
         this.juego_actual = type;
@@ -158,8 +161,6 @@ export class GamesPage implements OnInit {
             setTimeout(() => {
                 document.getElementById('semaforo').style.visibility = 'hidden';
                 document.getElementById('contenedor').style.borderColor = '#2CB978';
-                const contenedor =   document.getElementById('contenedor');
-                contenedor.classList.add('borderImage');
 
                 self.corriendo_animacion = false;
                 self.reiniciar_pregunta = true;
