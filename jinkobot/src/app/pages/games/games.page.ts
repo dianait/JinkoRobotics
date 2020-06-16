@@ -33,7 +33,6 @@ export class GamesPage implements OnInit {
   public corriendo_animacion = false;
   public reiniciar_pregunta = false;
   public juego_actual = '';
-  public showWebcam = true;
 
 
   constructor(
@@ -80,28 +79,17 @@ export class GamesPage implements OnInit {
   }
 
   public startTimer() {
-    // Preparamos el contenedor para que se vea la webcam
-    // Si no lo hago aquí no se carga la cámara ?
-    this.showWebcam = true;
-
+ 
     // Vaciamos el contenido de la variable response
     this.response = '';
     this.feedback = '';
-
-    // Si vamos a elegir otra pregunta, ocultamos la webcam
-    if (this.fab_icon === 'reload') {
-      this.showWebcam = false;
-
-    }
 
     // Si es el momento de comprobar la respuesta del niño
     if (this.fab_icon === 'play') {
 
       // Mostramos el semáforo
       const imagen = document.getElementById('semaforo') as HTMLImageElement;
-      const contendor = document.getElementById('contenedor') as HTMLImageElement;
       imagen.style.display = 'block';
-      contendor.style.display = 'block';
 
     // ======================== LLamamos al servicio de ROS
       const nameService = '/jinko_games_service';
@@ -110,9 +98,14 @@ export class GamesPage implements OnInit {
         answer: this.answer
     };
       const callback = (result: any) => {
-      console.log('Ejericicio ' + result.success);
+        if (this.answer === 'enfado') {
+          this.answer = 'enfadado';
+        }
+        console.log('Ejericicio ' + result.success);
       // this.feedback = (result.success) ? 'BIEEEEN' : 'OOOOOOHHH';
-      if (result.success) {
+        if (result.success) {
+        const feedbackText = document.getElementsByClassName('feedback')[0];
+        feedbackText.classList.remove('incorrect');
         this.feedback = 'BIEEEEN';
         this.question = 'La respuesta correcta es ' + this.answer;
       } else {
@@ -124,7 +117,6 @@ export class GamesPage implements OnInit {
       }
 
     };
-
 
       this.rosService.callService(nameService, typeMessage, data, callback);
     // ======================== LLamamos al servicio de ROS
@@ -144,10 +136,6 @@ export class GamesPage implements OnInit {
 
   public animacionSemaforo() {
 
-    // Contenedor del semáforo
-    const contenedor =  document.getElementById('contenedor') as HTMLImageElement;
-    contenedor.style.display = 'block';
-
     // Semáforo
     const imagen = document.getElementById('semaforo') as HTMLImageElement;
 
@@ -164,20 +152,14 @@ export class GamesPage implements OnInit {
             imagen.src = '../../assets/img/timer/semaforo3.png';
             setTimeout(() => {
                 document.getElementById('semaforo').style.visibility = 'hidden';
-                document.getElementById('fondo').style.visibility = 'hidden';
                 document.getElementById('contenedor').style.borderColor = '#2CB978';
+                const contenedor =   document.getElementById('contenedor');
+                contenedor.classList.add('borderImage');
+
                 self.corriendo_animacion = false;
                 self.reiniciar_pregunta = true;
                 self.fab_color = 'primary';
                 self.fab_icon = 'reload';
-
-                // Cuando ha terminado la animación ocultamos el semáforo, tanto el contenedor com el semáforo
-                imagen.style.display = 'none';
-                const contenedor =  document.getElementById('contenedor') as HTMLImageElement;
-                contenedor.style.display = 'none';
-
-                // Mostramos la webcam
-                this.mostrarWebcam();
             }, 1500);
         }, 1500);
     }, 1500);
@@ -196,13 +178,6 @@ export class GamesPage implements OnInit {
     this.showEx(type);
     this.reiniciar_pregunta = false;
     this.fab_icon = 'play';
-  }
-
-  private mostrarWebcam() {
-
-    this.streamingService.setCamera('/camera_image', 'camera', window.innerWidth, 320);
-
-
   }
 
 }

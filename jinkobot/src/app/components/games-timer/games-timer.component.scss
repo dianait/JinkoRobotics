@@ -3,10 +3,9 @@
     height: 40%;
     margin: auto !important;
     margin-top: 10% !important;
-    z-index: 10 !important;
+    z-index: 1000 !important;
     position: relative;
-    align-items: center !important;
-    position: relative;
+    border: 5px solid red;
     border-style: solid;
     border-color: red;
 }
@@ -14,9 +13,11 @@
 .fondo{
     width: 100%;
     height: 100%;
-    background-color: grey;
-    opacity: 0.4;
-    position: absolute;
+    margin: 0 auto;
+    z-index: 0 !important;
+    opacity: 0.6;
+    position: fixed;
+    
 }
 
 .semaforo{
@@ -28,5 +29,13 @@
     left: 0;
     margin: auto !important;
     visibility: hidden;
+    background-color: lightgrey;
     position: absolute;
+}
+
+.borderImage {
+    margin-top: 20% !important;
+    width: 50% !important;
+    height:30% !important;
+
 }

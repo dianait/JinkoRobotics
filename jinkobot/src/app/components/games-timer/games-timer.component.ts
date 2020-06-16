@@ -1,3 +1,4 @@
+import { StreamingService } from './../../services/ros/streaming.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GamesTimerComponent implements OnInit {
 
-  constructor() { }
+  constructor(private streamingService: StreamingService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    this.streamingService.setCamera('/camera_image', 'fondo', window.innerWidth, 320);
+  }
 
 }

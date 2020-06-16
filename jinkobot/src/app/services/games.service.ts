@@ -31,7 +31,7 @@ export class GamesService {
         {
             id: 3,
             type: 'inferences',
-            src: '../../assets/img/exercises/3.jpegs',
+            src: '../../assets/img/exercises/3.jpeg',
             question: 'El niño no se ha comido el bacadillo en el recreo ¿El niño está en el colegio o en su casa?',
             answer: 'cole'
         },
@@ -52,16 +52,16 @@ export class GamesService {
         {
             id: 6,
             type: 'inferences',
-            src: '../../assets/img/exercises/3.png',
+            src: '../../assets/img/exercises/6.jpg',
             question: 'Compramos palomitas y nos pusimos cómodos a ver la película. ¿Dónde estamos?',
             answer: 'cine'
         },
         {
             id: 7,
             type: 'inferences',
-            src: '../../assets/img/exercises/3.png',
+            src: '../../assets/img/exercises/7.jpg',
             // tslint:disable-next-line: max-line-length
-            question: 'Carlos se tiro desde el trampolín y sus amigos lo miraron desde la zona de comidas.¿Carlos esta en la piscina o en el teatro?',
+            question: 'Carlos se tiro desde el trampolín y sus amigos lo miraron desde la zona de comidas.¿Carlos está en la piscina o en el teatro?',
             answer: 'piscina'
         },
     ];
