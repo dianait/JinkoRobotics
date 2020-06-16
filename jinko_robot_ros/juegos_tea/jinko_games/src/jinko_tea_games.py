@@ -1,24 +1,40 @@
 #! /usr/bin/env python
 import cv2
-import numpy as np
 import rospy
-from matplotlib import pyplot as plt
 from jinko_games_message.srv import jinko_games_message, jinko_games_messageRequest, jinko_games_messageResponse
-import sys
 import numpy as np
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
-import time
+
 
 class TEAGame:
+    """ Clase juego TEA
+        @param count: Contador para parar la ejecucion si no encuentra match en un tiempo determinado
+        @type count: int
+        @param source: Fuente del video a analizar
+            (default is 0)
+        @type count: int
+        @param MIN_MATCH: Minimo de coincidencias que se tienen que dar entre las imagenes para que se considere match
+        @type count: int
+            (default is 30)
+        @param MAX_TIME: Maximo tiempo que va a esperar antes de devolver false si no encunetra match
+        @type count: int
+            (default is 250)
+        @param WAIT_BEFORE_DETECT:  una espera antes de empezar a analizar la imagen
+        @type count: int
+            (default is 40)
+    """
 
     def __init__(self):
+        """
+        Constructor de la clase TEA
+        @return Un objeto con las configuraciones basicas para poder realizar el metodo check
+        @rtype: TEAGame
+        """
         self.count = 0
-        self.position = ([], [])
-        self.threshold = 0.7
         self.source = 0
-        self.MIN_MATCH = 16
-        self.MAX_TIME = 500
+        self.MIN_MATCH = 30
+        self.MAX_TIME = 250
         self.WAIT_BEFORE_DETECT = 40
         self.detector = cv2.ORB_create(1000)
         self.FLANN_INDEX_LSH = 6
@@ -31,10 +47,12 @@ class TEAGame:
 
 
     def check(self, answer):
-
-        if answer == 'feliz':
-            self.MIN_MATCH = 10
-
+        """ Constructor de la clase TEA
+        @param answer: El patron a buscar en la imagen ('trsite', 'enfadado'...)
+        @type answer: str
+        @return: Si ha encontrado el patron o no
+        @rtype: bool
+        """
         video = cv2.VideoCapture(self.source)
         pattern = cv2.imread("/home/diana/catkin_ws/src/jinko_tea_games/src/img/" + answer + ".png")
         pattern = cv2.cvtColor(pattern, cv2.COLOR_BGR2GRAY)
@@ -69,23 +87,20 @@ class TEAGame:
 
             print('good matches:%d/%d' %(len(good_matches),len(matches)))
 
-            if self.count > self.WAIT_BEFORE_DETECT:
-                
-                if len(good_matches) > self.MIN_MATCH:
+            if self.count > self.WAIT_BEFORE_DETECT and len(good_matches) > self.MIN_MATCH:
                     
-                    # Los puntos que hacen match (que estan en good_matches ) de las dos imagenes 
-                    src_pts = np.float32([ kp1[m.queryIdx].pt for m in good_matches ])
-                    dst_pts = np.float32([ kp2[m.trainIdx].pt for m in good_matches ])
+                # Los puntos que hacen match (que estan en good_matches ) de las dos imagenes 
+                src_pts = np.float32([ kp1[m.queryIdx].pt for m in good_matches ])
+                dst_pts = np.float32([ kp2[m.trainIdx].pt for m in good_matches ])
 
-                    # Encuentra transformaciones de perspectiva entre dos planos.
-                    # A partir de los keypoints que deben coincidir tiene encuenta si se gira, se inclina... la tarjeta 
-                    mtrx, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
+                # Encuentra transformaciones de perspectiva entre dos planos.
+                # A partir de los keypoints que deben coincidir tiene encuenta si se gira, se inclina... la tarjeta 
+                mtrx, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
 
-                    accuracy=float(mask.sum()) / mask.size
-                    print("accuracy: %d/%d(%.2f%%)"% (mask.sum(), mask.size, accuracy))
-                
-                    if mask.sum() > self.MIN_MATCH:
-                        return True  
+                accuracy=float(mask.sum()) / mask.size
+                print("accuracy: %d/%d(%.2f%%)"% (mask.sum(), mask.size, accuracy))
+                if mask.sum() > self.MIN_MATCH:
+                    return True 
 
             pub.publish(image_message)
             cv2.imshow("Webcam ", frame)
@@ -102,16 +117,26 @@ class TEAGame:
 
 
 def checkAnswer(request):
+    """
+    Callback del servicio /jinko_games_service
+    @param request: informacion recibida del servicio /jinko_games_service
+    @type request: jinko_games_messageRequest
+    @return: Si ha encontrado la coincidencia o no a partir de GameTEA.check()
+    @rtype: jinko_games_messageResponse
+    """
 
     # Patron a buscar (triste, enfadado, coche, bici... )
     answer = request.answer
 
     # Ceamos objeto de la clase TEAGame
     game = TEAGame()
+    # help(game)
 
     # Generamos el mensaje respuesta del servicio
     response = jinko_games_messageResponse()
-    response.success = game.check(answer)
+    respuesta = game.check(answer)
+    # help(respueta)
+    response.success = respuesta
     return response
 
 
@@ -122,4 +147,5 @@ if __name__ == "__main__":
         rospy.spin()
     except rospy.ROSInterruptException:
         rospy.loginfo(" Testeo JINKOBOT finalizado")
+
 
