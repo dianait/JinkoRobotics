@@ -123,6 +123,11 @@ export class GamesPage implements OnInit {
 
     }
 
+    if (this.fab_icon === 'reload') {
+      const contenedor =   document.getElementById('contenedor');
+      contenedor.classList.remove('borderImage');
+    }
+
     if (!this.hay_juego_seleccionado) {
         this.question = '↑ ELIGE UN JUEGO PARA EMPEZAR ↑';
     } else if (this.reiniciar_pregunta && !this.corriendo_animacion) { // El juego esta en marcha y se quiere cambiar la pregunta
