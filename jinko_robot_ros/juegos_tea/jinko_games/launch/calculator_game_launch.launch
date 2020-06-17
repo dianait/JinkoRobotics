@@ -1,0 +1,7 @@
+<launch>
+    <node pkg="jinko_games"
+    type="calculator_game.py"
+    name="jinko_games"
+    output="screen">
+    </node>
+</launch>
