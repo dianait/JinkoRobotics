@@ -36,9 +36,21 @@ se_ha_comprobado = False
 ## Descripcion de los estados
 class PowerOnRobot(State):
     def __init__(self):
+        """
+        Constructor de la clase PowerOnRobot
+        @return Objeto para realizar una simulacion de la puesta en marcha del robot
+        @rtype: PowerOnRobot
+        """
         State.__init__(self, outcomes=['succeeded','aborted'])
 
     def execute(self, userdata):
+        """
+        Funcion de encendido del robot mediante simulacion
+        @param userdata: 
+        @type userdata: 
+        @return: Si ha encontrado la coincidencia o no a partir de GameTEA.check()
+        @rtype: PowerOnRobot
+        """
         rospy.loginfo("Encendiendo el Robot")
         time.sleep(2)
         return 'succeeded'
@@ -58,7 +70,20 @@ class WaitingOrder(State):
 
 
 class Navigate(State):
+    """ Clase Navigate
+        @param position: Indicador de la posicion a la que se desea navegar.
+        @type position: Array[3]
+        @param orientation: Indicador de la orientacion que queremos que tenga el robot al final de la navegacion.
+        @type orientation: Array[3]
+        @param place: Nombre del sitio al que queremos que vaya cuando le hemos dado a un favorito.
+        @type place: String
+    """
     def __init__(self, position, orientation, place):
+        """
+        Constructor de la clase Navigate
+        @return: Se guardan las variables para el siguiente movimiento del robot.
+        @rtype: Navigate
+        """
         State.__init__(self, outcomes=['succeeded', 'aborted'], input_keys=[''], output_keys=[''])
         self._position =position
         self._orientation =orientation
@@ -69,6 +94,11 @@ class Navigate(State):
 
 
     def execute(self, userdata):
+        """
+        execute
+        @return: Envia el destino al topic que lee el robot para moverse.
+        @rtype: String -> 'succeeded' | 'aborted'
+        """
         time.sleep(2)
         goal = MoveBaseGoal()
         goal.target_pose.header.frame_id = 'map'
@@ -110,6 +140,13 @@ class Charge(State):
 """
 
 def my_callback(request):
+    """
+    my_callback
+    @return: Envia el destino al topic que lee el robot para moverse.
+    @rtype: donde_deberia_estar_el_robot -> Array , esta_donde_deberia -> Bool , se_ha_comprobado -> Bool
+    @param request: Mensaje con la informacion de destino deseada.
+    @type request: jinko_message
+    """
     global donde_deberia_estar_el_robot
     global esta_donde_deberia
     global se_ha_comprobado
@@ -254,6 +291,15 @@ def my_callback(request):
 
 
 def comprobacionPosicion(poseWithCovariance):
+    """
+    comprobacionPosicion
+    @return: Comprueba que el robot se ha movido al punto 
+    que se le ha indicado correctamente comparando la posicion final del mismo 
+    con la que se le ha indicado al realizar la navegacion.
+    @rtype: donde_deberia_estar_el_robot -> Array , esta_donde_deberia -> Bool , se_ha_comprobado -> Bool, desviacion -> float
+    @param poseWithCovariance: Mensaje con la informacion del destino.
+    @type poseWithCovariance: geometry_message
+    """
     global donde_deberia_estar_el_robot
     global esta_donde_deberia
     global desviacion
