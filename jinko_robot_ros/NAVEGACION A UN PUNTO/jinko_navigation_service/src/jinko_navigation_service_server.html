@@ -1,0 +1,287 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module jinko_navigation_service_server</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>jinko_navigation_service_server</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/carlos/Desktop/pydoc/jinko_navigation_service_server.py">/home/carlos/Desktop/pydoc/jinko_navigation_service_server.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="actionlib.html">actionlib</a><br>
+</td><td width="25%" valign=top><a href="rospy.html">rospy</a><br>
+</td><td width="25%" valign=top><a href="smach.html">smach</a><br>
+</td><td width="25%" valign=top><a href="time.html">time</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="jinko_navigation_service_server.html#main">main</a>
+</font></dt><dt><font face="helvetica, arial"><a href="smach.state.html#State">smach.state.State</a>(<a href="__builtin__.html#object">__builtin__.object</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="jinko_navigation_service_server.html#Navigate">Navigate</a>
+</font></dt><dt><font face="helvetica, arial"><a href="jinko_navigation_service_server.html#PowerOnRobot">PowerOnRobot</a>
+</font></dt><dt><font face="helvetica, arial"><a href="jinko_navigation_service_server.html#WaitingOrder">WaitingOrder</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Navigate">class <strong>Navigate</strong></a>(<a href="smach.state.html#State">smach.state.State</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Clase&nbsp;<a href="#Navigate">Navigate</a><br>
+@param&nbsp;position:&nbsp;Indicador&nbsp;de&nbsp;la&nbsp;posicion&nbsp;a&nbsp;la&nbsp;que&nbsp;se&nbsp;desea&nbsp;navegar.<br>
+@type&nbsp;position:&nbsp;Array[3]<br>
+@param&nbsp;orientation:&nbsp;Indicador&nbsp;de&nbsp;la&nbsp;orientacion&nbsp;que&nbsp;queremos&nbsp;que&nbsp;tenga&nbsp;el&nbsp;robot&nbsp;al&nbsp;final&nbsp;de&nbsp;la&nbsp;navegacion.<br>
+@type&nbsp;orientation:&nbsp;Array[3]<br>
+@param&nbsp;place:&nbsp;Nombre&nbsp;del&nbsp;sitio&nbsp;al&nbsp;que&nbsp;queremos&nbsp;que&nbsp;vaya&nbsp;cuando&nbsp;le&nbsp;hemos&nbsp;dado&nbsp;a&nbsp;un&nbsp;favorito.<br>
+@type&nbsp;place:&nbsp;String<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="jinko_navigation_service_server.html#Navigate">Navigate</a></dd>
+<dd><a href="smach.state.html#State">smach.state.State</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Navigate-__init__"><strong>__init__</strong></a>(self, position, orientation, place)</dt><dd><tt>Constructor&nbsp;de&nbsp;la&nbsp;clase&nbsp;<a href="#Navigate">Navigate</a><br>
+@return:&nbsp;Se&nbsp;guardan&nbsp;las&nbsp;variables&nbsp;para&nbsp;el&nbsp;siguiente&nbsp;movimiento&nbsp;del&nbsp;robot.<br>
+@rtype:&nbsp;<a href="#Navigate">Navigate</a></tt></dd></dl>
+
+<dl><dt><a name="Navigate-execute"><strong>execute</strong></a>(self, userdata)</dt><dd><tt>execute<br>
+@return:&nbsp;Envia&nbsp;el&nbsp;destino&nbsp;al&nbsp;topic&nbsp;que&nbsp;lee&nbsp;el&nbsp;robot&nbsp;para&nbsp;moverse.<br>
+@rtype:&nbsp;String&nbsp;-&gt;&nbsp;'succeeded'&nbsp;|&nbsp;'aborted'</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="smach.state.html#State">smach.state.State</a>:<br>
+<dl><dt><a name="Navigate-get_registered_input_keys"><strong>get_registered_input_keys</strong></a>(self)</dt><dd><tt>Get&nbsp;a&nbsp;tuple&nbsp;of&nbsp;registered&nbsp;input&nbsp;keys.</tt></dd></dl>
+
+<dl><dt><a name="Navigate-get_registered_outcomes"><strong>get_registered_outcomes</strong></a>(self)</dt><dd><tt>Get&nbsp;a&nbsp;list&nbsp;of&nbsp;registered&nbsp;outcomes.<br>
+@rtype:&nbsp;tuple&nbsp;of&nbsp;str<br>
+@return:&nbsp;Tuple&nbsp;of&nbsp;registered&nbsp;outcome&nbsp;strings.</tt></dd></dl>
+
+<dl><dt><a name="Navigate-get_registered_output_keys"><strong>get_registered_output_keys</strong></a>(self)</dt><dd><tt>Get&nbsp;a&nbsp;tuple&nbsp;of&nbsp;registered&nbsp;output&nbsp;keys.</tt></dd></dl>
+
+<dl><dt><a name="Navigate-preempt_requested"><strong>preempt_requested</strong></a>(self)</dt><dd><tt>True&nbsp;if&nbsp;a&nbsp;preempt&nbsp;has&nbsp;been&nbsp;requested.</tt></dd></dl>
+
+<dl><dt><a name="Navigate-recall_preempt"><strong>recall_preempt</strong></a>(self)</dt><dd><tt>Sets&nbsp;preempt_requested&nbsp;to&nbsp;False</tt></dd></dl>
+
+<dl><dt><a name="Navigate-register_input_keys"><strong>register_input_keys</strong></a>(self, keys)</dt><dd><tt>Add&nbsp;keys&nbsp;to&nbsp;the&nbsp;set&nbsp;of&nbsp;keys&nbsp;from&nbsp;which&nbsp;this&nbsp;state&nbsp;may&nbsp;read.<br>
+@type&nbsp;keys:&nbsp;list&nbsp;of&nbsp;str<br>
+@param&nbsp;keys:&nbsp;List&nbsp;of&nbsp;keys&nbsp;which&nbsp;may&nbsp;be&nbsp;read&nbsp;from&nbsp;when&nbsp;this&nbsp;state&nbsp;is<br>
+active.</tt></dd></dl>
+
+<dl><dt><a name="Navigate-register_io_keys"><strong>register_io_keys</strong></a>(self, keys)</dt><dd><tt>Add&nbsp;keys&nbsp;to&nbsp;the&nbsp;set&nbsp;of&nbsp;keys&nbsp;from&nbsp;which&nbsp;this&nbsp;state&nbsp;may&nbsp;read&nbsp;and&nbsp;write.<br>
+@type&nbsp;keys:&nbsp;list&nbsp;of&nbsp;str<br>
+@param&nbsp;keys:&nbsp;List&nbsp;of&nbsp;keys&nbsp;which&nbsp;may&nbsp;be&nbsp;read&nbsp;from&nbsp;and&nbsp;written&nbsp;to&nbsp;when&nbsp;this<br>
+state&nbsp;is&nbsp;active.</tt></dd></dl>
+
+<dl><dt><a name="Navigate-register_outcomes"><strong>register_outcomes</strong></a>(self, new_outcomes)</dt><dd><tt>Add&nbsp;outcomes&nbsp;to&nbsp;the&nbsp;outcome&nbsp;set.</tt></dd></dl>
+
+<dl><dt><a name="Navigate-register_output_keys"><strong>register_output_keys</strong></a>(self, keys)</dt><dd><tt>Add&nbsp;keys&nbsp;to&nbsp;the&nbsp;set&nbsp;of&nbsp;keys&nbsp;to&nbsp;which&nbsp;this&nbsp;state&nbsp;may&nbsp;write.<br>
+@type&nbsp;keys:&nbsp;list&nbsp;of&nbsp;str<br>
+@param&nbsp;keys:&nbsp;List&nbsp;of&nbsp;keys&nbsp;which&nbsp;may&nbsp;be&nbsp;written&nbsp;to&nbsp;when&nbsp;this&nbsp;state&nbsp;is<br>
+active.</tt></dd></dl>
+
+<dl><dt><a name="Navigate-request_preempt"><strong>request_preempt</strong></a>(self)</dt><dd><tt>Sets&nbsp;preempt_requested&nbsp;to&nbsp;True</tt></dd></dl>
+
+<dl><dt><a name="Navigate-service_preempt"><strong>service_preempt</strong></a>(self)</dt><dd><tt>Sets&nbsp;preempt_requested&nbsp;to&nbsp;False</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="smach.state.html#State">smach.state.State</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PowerOnRobot">class <strong>PowerOnRobot</strong></a>(<a href="smach.state.html#State">smach.state.State</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>##&nbsp;Descripcion&nbsp;de&nbsp;los&nbsp;estados<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="jinko_navigation_service_server.html#PowerOnRobot">PowerOnRobot</a></dd>
+<dd><a href="smach.state.html#State">smach.state.State</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="PowerOnRobot-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Constructor&nbsp;de&nbsp;la&nbsp;clase&nbsp;<a href="#PowerOnRobot">PowerOnRobot</a><br>
+@return&nbsp;Objeto&nbsp;para&nbsp;realizar&nbsp;una&nbsp;simulacion&nbsp;de&nbsp;la&nbsp;puesta&nbsp;en&nbsp;marcha&nbsp;del&nbsp;robot<br>
+@rtype:&nbsp;<a href="#PowerOnRobot">PowerOnRobot</a></tt></dd></dl>
+
+<dl><dt><a name="PowerOnRobot-execute"><strong>execute</strong></a>(self, userdata)</dt><dd><tt>Funcion&nbsp;de&nbsp;encendido&nbsp;del&nbsp;robot&nbsp;mediante&nbsp;simulacion<br>
+@param&nbsp;userdata:&nbsp;<br>
+@type&nbsp;userdata:&nbsp;<br>
+@return:&nbsp;Si&nbsp;ha&nbsp;encontrado&nbsp;la&nbsp;coincidencia&nbsp;o&nbsp;no&nbsp;a&nbsp;partir&nbsp;de&nbsp;GameTEA.check()<br>
+@rtype:&nbsp;<a href="#PowerOnRobot">PowerOnRobot</a></tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="smach.state.html#State">smach.state.State</a>:<br>
+<dl><dt><a name="PowerOnRobot-get_registered_input_keys"><strong>get_registered_input_keys</strong></a>(self)</dt><dd><tt>Get&nbsp;a&nbsp;tuple&nbsp;of&nbsp;registered&nbsp;input&nbsp;keys.</tt></dd></dl>
+
+<dl><dt><a name="PowerOnRobot-get_registered_outcomes"><strong>get_registered_outcomes</strong></a>(self)</dt><dd><tt>Get&nbsp;a&nbsp;list&nbsp;of&nbsp;registered&nbsp;outcomes.<br>
+@rtype:&nbsp;tuple&nbsp;of&nbsp;str<br>
+@return:&nbsp;Tuple&nbsp;of&nbsp;registered&nbsp;outcome&nbsp;strings.</tt></dd></dl>
+
+<dl><dt><a name="PowerOnRobot-get_registered_output_keys"><strong>get_registered_output_keys</strong></a>(self)</dt><dd><tt>Get&nbsp;a&nbsp;tuple&nbsp;of&nbsp;registered&nbsp;output&nbsp;keys.</tt></dd></dl>
+
+<dl><dt><a name="PowerOnRobot-preempt_requested"><strong>preempt_requested</strong></a>(self)</dt><dd><tt>True&nbsp;if&nbsp;a&nbsp;preempt&nbsp;has&nbsp;been&nbsp;requested.</tt></dd></dl>
+
+<dl><dt><a name="PowerOnRobot-recall_preempt"><strong>recall_preempt</strong></a>(self)</dt><dd><tt>Sets&nbsp;preempt_requested&nbsp;to&nbsp;False</tt></dd></dl>
+
+<dl><dt><a name="PowerOnRobot-register_input_keys"><strong>register_input_keys</strong></a>(self, keys)</dt><dd><tt>Add&nbsp;keys&nbsp;to&nbsp;the&nbsp;set&nbsp;of&nbsp;keys&nbsp;from&nbsp;which&nbsp;this&nbsp;state&nbsp;may&nbsp;read.<br>
+@type&nbsp;keys:&nbsp;list&nbsp;of&nbsp;str<br>
+@param&nbsp;keys:&nbsp;List&nbsp;of&nbsp;keys&nbsp;which&nbsp;may&nbsp;be&nbsp;read&nbsp;from&nbsp;when&nbsp;this&nbsp;state&nbsp;is<br>
+active.</tt></dd></dl>
+
+<dl><dt><a name="PowerOnRobot-register_io_keys"><strong>register_io_keys</strong></a>(self, keys)</dt><dd><tt>Add&nbsp;keys&nbsp;to&nbsp;the&nbsp;set&nbsp;of&nbsp;keys&nbsp;from&nbsp;which&nbsp;this&nbsp;state&nbsp;may&nbsp;read&nbsp;and&nbsp;write.<br>
+@type&nbsp;keys:&nbsp;list&nbsp;of&nbsp;str<br>
+@param&nbsp;keys:&nbsp;List&nbsp;of&nbsp;keys&nbsp;which&nbsp;may&nbsp;be&nbsp;read&nbsp;from&nbsp;and&nbsp;written&nbsp;to&nbsp;when&nbsp;this<br>
+state&nbsp;is&nbsp;active.</tt></dd></dl>
+
+<dl><dt><a name="PowerOnRobot-register_outcomes"><strong>register_outcomes</strong></a>(self, new_outcomes)</dt><dd><tt>Add&nbsp;outcomes&nbsp;to&nbsp;the&nbsp;outcome&nbsp;set.</tt></dd></dl>
+
+<dl><dt><a name="PowerOnRobot-register_output_keys"><strong>register_output_keys</strong></a>(self, keys)</dt><dd><tt>Add&nbsp;keys&nbsp;to&nbsp;the&nbsp;set&nbsp;of&nbsp;keys&nbsp;to&nbsp;which&nbsp;this&nbsp;state&nbsp;may&nbsp;write.<br>
+@type&nbsp;keys:&nbsp;list&nbsp;of&nbsp;str<br>
+@param&nbsp;keys:&nbsp;List&nbsp;of&nbsp;keys&nbsp;which&nbsp;may&nbsp;be&nbsp;written&nbsp;to&nbsp;when&nbsp;this&nbsp;state&nbsp;is<br>
+active.</tt></dd></dl>
+
+<dl><dt><a name="PowerOnRobot-request_preempt"><strong>request_preempt</strong></a>(self)</dt><dd><tt>Sets&nbsp;preempt_requested&nbsp;to&nbsp;True</tt></dd></dl>
+
+<dl><dt><a name="PowerOnRobot-service_preempt"><strong>service_preempt</strong></a>(self)</dt><dd><tt>Sets&nbsp;preempt_requested&nbsp;to&nbsp;False</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="smach.state.html#State">smach.state.State</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="WaitingOrder">class <strong>WaitingOrder</strong></a>(<a href="smach.state.html#State">smach.state.State</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="jinko_navigation_service_server.html#WaitingOrder">WaitingOrder</a></dd>
+<dd><a href="smach.state.html#State">smach.state.State</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="WaitingOrder-__init__"><strong>__init__</strong></a>(self, order_state)</dt></dl>
+
+<dl><dt><a name="WaitingOrder-execute"><strong>execute</strong></a>(self, userdata)</dt></dl>
+
+<hr>
+Methods inherited from <a href="smach.state.html#State">smach.state.State</a>:<br>
+<dl><dt><a name="WaitingOrder-get_registered_input_keys"><strong>get_registered_input_keys</strong></a>(self)</dt><dd><tt>Get&nbsp;a&nbsp;tuple&nbsp;of&nbsp;registered&nbsp;input&nbsp;keys.</tt></dd></dl>
+
+<dl><dt><a name="WaitingOrder-get_registered_outcomes"><strong>get_registered_outcomes</strong></a>(self)</dt><dd><tt>Get&nbsp;a&nbsp;list&nbsp;of&nbsp;registered&nbsp;outcomes.<br>
+@rtype:&nbsp;tuple&nbsp;of&nbsp;str<br>
+@return:&nbsp;Tuple&nbsp;of&nbsp;registered&nbsp;outcome&nbsp;strings.</tt></dd></dl>
+
+<dl><dt><a name="WaitingOrder-get_registered_output_keys"><strong>get_registered_output_keys</strong></a>(self)</dt><dd><tt>Get&nbsp;a&nbsp;tuple&nbsp;of&nbsp;registered&nbsp;output&nbsp;keys.</tt></dd></dl>
+
+<dl><dt><a name="WaitingOrder-preempt_requested"><strong>preempt_requested</strong></a>(self)</dt><dd><tt>True&nbsp;if&nbsp;a&nbsp;preempt&nbsp;has&nbsp;been&nbsp;requested.</tt></dd></dl>
+
+<dl><dt><a name="WaitingOrder-recall_preempt"><strong>recall_preempt</strong></a>(self)</dt><dd><tt>Sets&nbsp;preempt_requested&nbsp;to&nbsp;False</tt></dd></dl>
+
+<dl><dt><a name="WaitingOrder-register_input_keys"><strong>register_input_keys</strong></a>(self, keys)</dt><dd><tt>Add&nbsp;keys&nbsp;to&nbsp;the&nbsp;set&nbsp;of&nbsp;keys&nbsp;from&nbsp;which&nbsp;this&nbsp;state&nbsp;may&nbsp;read.<br>
+@type&nbsp;keys:&nbsp;list&nbsp;of&nbsp;str<br>
+@param&nbsp;keys:&nbsp;List&nbsp;of&nbsp;keys&nbsp;which&nbsp;may&nbsp;be&nbsp;read&nbsp;from&nbsp;when&nbsp;this&nbsp;state&nbsp;is<br>
+active.</tt></dd></dl>
+
+<dl><dt><a name="WaitingOrder-register_io_keys"><strong>register_io_keys</strong></a>(self, keys)</dt><dd><tt>Add&nbsp;keys&nbsp;to&nbsp;the&nbsp;set&nbsp;of&nbsp;keys&nbsp;from&nbsp;which&nbsp;this&nbsp;state&nbsp;may&nbsp;read&nbsp;and&nbsp;write.<br>
+@type&nbsp;keys:&nbsp;list&nbsp;of&nbsp;str<br>
+@param&nbsp;keys:&nbsp;List&nbsp;of&nbsp;keys&nbsp;which&nbsp;may&nbsp;be&nbsp;read&nbsp;from&nbsp;and&nbsp;written&nbsp;to&nbsp;when&nbsp;this<br>
+state&nbsp;is&nbsp;active.</tt></dd></dl>
+
+<dl><dt><a name="WaitingOrder-register_outcomes"><strong>register_outcomes</strong></a>(self, new_outcomes)</dt><dd><tt>Add&nbsp;outcomes&nbsp;to&nbsp;the&nbsp;outcome&nbsp;set.</tt></dd></dl>
+
+<dl><dt><a name="WaitingOrder-register_output_keys"><strong>register_output_keys</strong></a>(self, keys)</dt><dd><tt>Add&nbsp;keys&nbsp;to&nbsp;the&nbsp;set&nbsp;of&nbsp;keys&nbsp;to&nbsp;which&nbsp;this&nbsp;state&nbsp;may&nbsp;write.<br>
+@type&nbsp;keys:&nbsp;list&nbsp;of&nbsp;str<br>
+@param&nbsp;keys:&nbsp;List&nbsp;of&nbsp;keys&nbsp;which&nbsp;may&nbsp;be&nbsp;written&nbsp;to&nbsp;when&nbsp;this&nbsp;state&nbsp;is<br>
+active.</tt></dd></dl>
+
+<dl><dt><a name="WaitingOrder-request_preempt"><strong>request_preempt</strong></a>(self)</dt><dd><tt>Sets&nbsp;preempt_requested&nbsp;to&nbsp;True</tt></dd></dl>
+
+<dl><dt><a name="WaitingOrder-service_preempt"><strong>service_preempt</strong></a>(self)</dt><dd><tt>Sets&nbsp;preempt_requested&nbsp;to&nbsp;False</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="smach.state.html#State">smach.state.State</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="main">class <strong>main</strong></a></font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="main-__init__"><strong>__init__</strong></a>(self)</dt></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-comprobacionPosicion"><strong>comprobacionPosicion</strong></a>(poseWithCovariance)</dt><dd><tt>comprobacionPosicion<br>
+@return:&nbsp;Comprueba&nbsp;que&nbsp;el&nbsp;robot&nbsp;se&nbsp;ha&nbsp;movido&nbsp;al&nbsp;punto&nbsp;<br>
+que&nbsp;se&nbsp;le&nbsp;ha&nbsp;indicado&nbsp;correctamente&nbsp;comparando&nbsp;la&nbsp;posicion&nbsp;final&nbsp;del&nbsp;mismo&nbsp;<br>
+con&nbsp;la&nbsp;que&nbsp;se&nbsp;le&nbsp;ha&nbsp;indicado&nbsp;al&nbsp;realizar&nbsp;la&nbsp;navegacion.<br>
+@rtype:&nbsp;donde_deberia_estar_el_robot&nbsp;-&gt;&nbsp;Array&nbsp;,&nbsp;esta_donde_deberia&nbsp;-&gt;&nbsp;Bool&nbsp;,&nbsp;se_ha_comprobado&nbsp;-&gt;&nbsp;Bool,&nbsp;desviacion&nbsp;-&gt;&nbsp;float<br>
+@param&nbsp;poseWithCovariance:&nbsp;Mensaje&nbsp;con&nbsp;la&nbsp;informacion&nbsp;del&nbsp;destino.<br>
+@type&nbsp;poseWithCovariance:&nbsp;geometry_message</tt></dd></dl>
+ <dl><dt><a name="-my_callback"><strong>my_callback</strong></a>(request)</dt><dd><tt>my_callback<br>
+@return:&nbsp;Envia&nbsp;el&nbsp;destino&nbsp;al&nbsp;topic&nbsp;que&nbsp;lee&nbsp;el&nbsp;robot&nbsp;para&nbsp;moverse.<br>
+@rtype:&nbsp;donde_deberia_estar_el_robot&nbsp;-&gt;&nbsp;Array&nbsp;,&nbsp;esta_donde_deberia&nbsp;-&gt;&nbsp;Bool&nbsp;,&nbsp;se_ha_comprobado&nbsp;-&gt;&nbsp;Bool<br>
+@param&nbsp;request:&nbsp;Mensaje&nbsp;con&nbsp;la&nbsp;informacion&nbsp;de&nbsp;destino&nbsp;deseada.<br>
+@type&nbsp;request:&nbsp;jinko_message</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>desviacion</strong> = 0.1<br>
+<strong>donde_deberia_estar_el_robot</strong> = [0.0, 0.0]<br>
+<strong>esta_donde_deberia</strong> = False<br>
+<strong>se_ha_comprobado</strong> = False<br>
+<strong>waypoints</strong> = [['PUERTA', (2.5, 0.0, 0.0), (0.0, 0.0, 2.9, 0.0)], ['MESA', (6.5, -0.5, 0.0), (0.0, 0.0, 3, 0.0)], ['ZONA_DE_JUEGOS', (6.5, -3.0, 0.0), (0.0, 0.0, 1, 0.0)]]</td></tr></table>
+</body></html>
