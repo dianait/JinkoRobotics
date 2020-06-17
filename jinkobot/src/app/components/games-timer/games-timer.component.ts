@@ -11,8 +11,8 @@ export class GamesTimerComponent implements OnInit {
   constructor(private streamingService: StreamingService) { }
 
   ngOnInit() {
+      this.streamingService.setCamera('/camera_image', 'fondo', window.innerWidth, 320);
 
-    this.streamingService.setCamera('/camera_image', 'fondo', window.innerWidth, 320);
   }
 
 }

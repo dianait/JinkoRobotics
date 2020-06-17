@@ -1,6 +1,8 @@
+
 #pregunta {
     text-align: center !important;
     padding-top: 0px !important;
+    margin-top: -13px;
 }
 
 .principal {
@@ -41,11 +43,34 @@
 
 .response {
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
 
 }
 .incorrect {
 
     color: red !important;
-
 }
+
+ .info {
+    margin: 0 auto;
+    width: 10rem;
+    padding-bottom: 0.5rem;
+    opacity: 0.4;
+  }
+
+  .live {
+    opacity: 1 !important;
+  }
+
+  .info > span {
+      color: white;
+  }
+
+  .icon {
+    padding-right: 0.5rem;
+    font-size: 1.2rem;
+    position: relative;
+    top: 0.26rem;
+    margin-bottom: -3px;
+
+  }
