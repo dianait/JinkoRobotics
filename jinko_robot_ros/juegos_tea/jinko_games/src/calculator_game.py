@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 import rospy
 import time
 import cv2
@@ -13,7 +13,12 @@ from jinko_games_message.srv import jinko_games_message, jinko_games_messageRequ
 
 
 def image_publisher():
-   
+    """
+    Funcion que captura la imagen de la webcam
+    @return: devuelve el frame del video cuando el contador
+    llega a los 50 segundos
+    @rtype: ndarray
+    """
     # resource 0 => webcam del portatil
     resource = 0
     contador = 0
@@ -21,7 +26,7 @@ def image_publisher():
     # Capturamos el video de la webcam
     video = cv2.VideoCapture(resource)
 
-    # Mientras el video esté abierto
+    # Mientras el video este abierto
     while video.isOpened():
 
         rval, frame = video.read()
@@ -38,25 +43,49 @@ def image_publisher():
     return frame
         
 def checkAnswer(request):
+    """
+    Callback del servicio /jinko_games_service
+    Realiza la captura de la imagen y la trata para que el modelo
+    pueda realizar su prediccion
+    @param request: informacion recibida del servicio /jinko_games_service
+    @type request: jinko_games_messageRequest
+    @return: Devuelve T / F si se la peticion coincide con la prediccion
+    @rtype: jinko_games_messageResponse
+    """
 
-    myFrame = image_publisher()
+    # Capturar imagen
+    image = image_publisher()
+
     # Numero a encontrar
     answer = request.answer
     model = load_model("/home/diana/catkin_ws/src/juegos_tea/my_model")
 
+    # Modificamos las propiedades de la imagen para que se
+    # adapten a las del modelo
     height = model.layers[0].input_shape[1]
     width = model.layers[0].input_shape[2]
     dtype = model.layers[0].dtype
 
-    myFrame = cv2.cvtColor(myFrame, cv2.COLOR_BGR2GRAY)
+    # Convertimos la imagen a escala de gris
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    myFrame = cv2.resize(myFrame, (height, width), interpolation=cv2.INTER_NEAREST)
+    # Redimensionamos la imagen capturada a las medidas del modelo
+    image = cv2.resize(image, (height, width), interpolation=cv2.INTER_NEAREST)
 
-    myFrame = myFrame.astype(dtype)
-    myFrame /= 255
-    myFrame = cv2.bitwise_not(myFrame)
-    predictions = model.predict(numpy.expand_dims(myFrame, 0))
+    # Convertimos la imagen al tipo float32 que acepta el modelo
+    image = image.astype(dtype)
 
+    # Codificamos cada pixel de la matriz de 0 a 1 en vez del rango de
+    # 0 a 255 de la escala de grises
+    image /= 255
+
+    # Invertimos la imagen de la webcam, ya que esta se toma invertida
+    image = cv2.bitwise_not(image)
+
+    # Realizamos la prediccion de la imagen utilizando el modelo entrenado
+    predictions = model.predict(numpy.expand_dims(image, 0))
+
+    # Comprobamos la respuesta correcta con la prediccion de la imagen
     if (answer == str(numpy.argmax(predictions[0]))):
         respuesta = True
     else: 
