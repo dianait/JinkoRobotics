@@ -23,7 +23,18 @@ export class RobotListComponent implements OnInit, OnChanges {
     this.robot$.subscribe((data: IRobot[]) => {
       this.robots = data;
     });
+
+    const robots: IRobot[] = [
+      {
+        id: '1',
+        alias: 'jinko'
+      }
+    ];
+
+    this.robots = robots;
+
   }
+
   ngOnChanges() {
     this.ngOnInit();
   }

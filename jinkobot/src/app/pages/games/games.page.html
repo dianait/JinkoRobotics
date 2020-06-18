@@ -28,11 +28,15 @@
     <div class="principal">
         <ion-card *ngIf="exercise != {}" class="cuadro-texto">
         <img [src]="src" class="imgQuestion" />
-      
         <ion-card-content class="response" id="pregunta">{{ question }}   </ion-card-content>
-        <!-- <ion-card-subtitle class="response"> {{ response }}</ion-card-subtitle> -->
         <ion-card-title class="feedback" >{{ feedback }}</ion-card-title>
         </ion-card>
+
+        <ion-item style="margin-top: 16px;">
+        
+        <ion-badge [color]="infoColor" class="info"><ion-icon color="white" class="icon" name="videocam"></ion-icon>
+            <span>JINKO CAMERA LIVE</span></ion-badge>
+    </ion-item>
 
         <games-timer class="ui"></games-timer>
     </div>

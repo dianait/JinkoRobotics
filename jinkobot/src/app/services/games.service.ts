@@ -76,7 +76,7 @@ export class GamesService {
     ****************************************************************************************/
     public getMathEx() {
         const op = this.operators[this.getRandomInt(0, (this.operators.length - 1))];
-        let x = this.getRandomInt(1, 5);
+        let x = this.getRandomInt(1, 4);
         let y = this.getRandomInt(1, 5);
         let answer, question;
         switch (op) {
@@ -123,7 +123,7 @@ export class GamesService {
 
 
            const randomIndex = this.getRandomInt(0, max);
-           console.log('Ejercicio aleatorio', array[randomIndex]);
+           // console.log('Ejercicio aleatorio', array[randomIndex]);
            return array[randomIndex];
 
     }

@@ -1,5 +1,4 @@
-#! /usr/bin/env python3
-
+#! /usr/bin/env python
 import rospy
 import time
 import cv2
@@ -14,54 +13,67 @@ from jinko_games_message.srv import jinko_games_message, jinko_games_messageRequ
 
 
 def image_publisher():
-
+   
     # resource 0 => webcam del portatil
     resource = 0
+    contador = 0
 
     # Capturamos el video de la webcam
-    cap = cv2.VideoCapture(resource)
-
-    rval, frame = cap.read()
+    video = cv2.VideoCapture(resource)
 
     # Mientras el video esté abierto
-    while rval:
-        # Muestreo una ventana con el video de la webcam
-        cv2.imshow("Stream: ", frame)
+    while video.isOpened():
 
-        time.sleep(5)
-        # Guardo el frame actual
-        rval, frame = cap.read()
+        rval, frame = video.read()
+        cv2.imshow("Webcam ", frame)
+        key = cv2.waitKey(20)
+        if key == 27 or key == 1048603:
+            break
 
-        # Frame ya es una imagen capturada de la cámara
-        # Con esto deberías poder hacer la predicción
-        cv2.destroyWindow("preview")
-        return frame
+        contador = contador + 1
+        if (contador > 50):
+            break
+    
+    cv2.destroyAllWindows()
+    return frame
+        
+def checkAnswer(request):
+
+    myFrame = image_publisher()
+    # Numero a encontrar
+    answer = request.answer
+    model = load_model("/home/diana/catkin_ws/src/juegos_tea/my_model")
+
+    height = model.layers[0].input_shape[1]
+    width = model.layers[0].input_shape[2]
+    dtype = model.layers[0].dtype
+
+    myFrame = cv2.cvtColor(myFrame, cv2.COLOR_BGR2GRAY)
+
+    myFrame = cv2.resize(myFrame, (height, width), interpolation=cv2.INTER_NEAREST)
+
+    myFrame = myFrame.astype(dtype)
+    myFrame /= 255
+    myFrame = cv2.bitwise_not(myFrame)
+    predictions = model.predict(numpy.expand_dims(myFrame, 0))
+
+    if (answer == str(numpy.argmax(predictions[0]))):
+        respuesta = True
+    else: 
+        respuesta = False
+    
+    response = jinko_games_messageResponse()
+    response.success = respuesta
+    print(numpy.argmax(predictions[0]))
+    print(predictions)
+    return response
 
 
 if __name__ == "__main__":
+
     try:
-        rospy.init_node('Jinko_tea_games', anonymous=True)
-        # rospy.init_node('Jinko_tea_games', anonymous=True)
-
+        rospy.init_node('Jinko_math_games', anonymous=True)
         rospy.Service('/jinko_games_service', jinko_games_message, checkAnswer)
-
-        model = load_model("/home/oscar/python3_ws/src/digitos/my_model")
-
-        height = model.layers[0].input_shape[1]
-        width = model.layers[0].input_shape[2]
-        dtype = model.layers[0].dtype
-
-        myFrame = image_publisher()
-
-        myFrame = cv2.cvtColor(myFrame, cv2.COLOR_BGR2GRAY)
-
-        myFrame = cv2.resize(myFrame, (height, width),
-                             interpolation=cv2.INTER_NEAREST)
-
-        myFrame = myFrame.astype(dtype)
-        myFrame /= 255
-        predictions = model.predict(numpy.expand_dims(myFrame, 0))
-
-        print(numpy.argmax(predictions[0]))
+        rospy.spin()
     except rospy.ROSInterruptException:
         rospy.loginfo(" Testeo JINKOBOT finalizado")

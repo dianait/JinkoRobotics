@@ -1,5 +1,3 @@
-
-import { StreamingService } from 'src/app/services/ros/streaming.service';
 import { Exercise } from 'src/app/models/Exercise';
 import { GamesService } from './../../services/games.service';
 import { Component, ViewChild, OnInit } from '@angular/core';
@@ -12,7 +10,6 @@ declare let MJPEGCANVAS;
   styleUrls: ['./games.page.scss'],
 })
 export class GamesPage implements OnInit {
-  private exercise = {id: '', type: '', src: '', question: '', answer: ''};
   public question = '';
   public src = '';
   public type = '';
@@ -27,6 +24,10 @@ export class GamesPage implements OnInit {
   // Texto que dirá si está bien o mal el ejercicio
   public feedback: string;
 
+  public info: HTMLElement;
+
+  public infoColor = 'medium';
+
   public fab_color = 'light';
   public fab_icon = '';
   public hay_juego_seleccionado = false;
@@ -37,23 +38,27 @@ export class GamesPage implements OnInit {
 
   constructor(
     private rosService: RosConnectionService,
-    private games: GamesService, private streamingService: StreamingService) {}
+    private games: GamesService) {}
 
   ngOnInit() {
 
-    this.rosService.connect();
-    this.question = '↑ Elige un juego para empezar ↑';
+    // Si no estamos conectados a Rosbridge nos conectamos
+    if (!this.rosService.connected) { this.rosService.connect(); }
+
+    this.question = '↑  Elige un juego para empezar  ↑';
     this.fab_color = 'light';
     this.fab_icon = 'play';
+
+    this.info = document.getElementsByClassName('info')[0] as HTMLElement;
 
   }
 
   public showEx(type: string) {
 
+      // Vaciamos el contenido de la variable response y feedback
       this.response = '';
       this.feedback = '';
 
-    //  && this.juego_actual !== type
       if (!this.corriendo_animacion) {
         this.juego_actual = type;
         this.hay_juego_seleccionado = true;
@@ -83,12 +88,16 @@ export class GamesPage implements OnInit {
 
   public startTimer() {
  
-    // Vaciamos el contenido de la variable response
+    // Vaciamos el contenido de la variable response y feedback
     this.response = '';
     this.feedback = '';
 
+
     // Si es el momento de comprobar la respuesta del niño
     if (this.fab_icon === 'play') {
+
+      this.infoColor = 'danger';
+      this.info.classList.add('live');
 
       // Mostramos el semáforo
       const imagen = document.getElementById('semaforo') as HTMLImageElement;
@@ -127,8 +136,8 @@ export class GamesPage implements OnInit {
     }
 
     if (this.fab_icon === 'reload') {
-      const contenedor =   document.getElementById('contenedor');
-      contenedor.classList.remove('borderImage');
+      this.infoColor = 'medium';
+      this.info.classList.remove('live');
     }
 
     if (!this.hay_juego_seleccionado) {
@@ -160,7 +169,6 @@ export class GamesPage implements OnInit {
             imagen.src = '../../assets/img/timer/semaforo3.png';
             setTimeout(() => {
                 document.getElementById('semaforo').style.visibility = 'hidden';
-                document.getElementById('contenedor').style.borderColor = '#2CB978';
 
                 self.corriendo_animacion = false;
                 self.reiniciar_pregunta = true;
